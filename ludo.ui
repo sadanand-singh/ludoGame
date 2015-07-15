@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuNew_Game">
+    <property name="title">
+     <string>New</string>
+    </property>
+    <addaction name="action1_Player"/>
+    <addaction name="actionLoad_Game_2"/>
+    <addaction name="separator"/>
+    <addaction name="actionSave_Game_2"/>
+    <addaction name="separator"/>
+    <addaction name="actionQuit"/>
+   </widget>
+   <widget class="QMenu" name="menuReset_Game">
+    <property name="title">
+     <string>Reset &amp;Game</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>He&amp;lp</string>
+    </property>
+    <addaction name="actionHow_To_Play"/>
+    <addaction name="actionAbout_Ludo"/>
+   </widget>
+   <addaction name="menuNew_Game"/>
+   <addaction name="menuReset_Game"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="action1_Player">
+   <property name="text">
+    <string>New Game</string>
+   </property>
+  </action>
+  <action name="action2_Players">
+   <property name="text">
+    <string>2 Players</string>
+   </property>
+  </action>
+  <action name="action3_Players">
+   <property name="text">
+    <string>3 Players</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+  </action>
+  <action name="actionSave_Game">
+   <property name="text">
+    <string>Save Game</string>
+   </property>
+  </action>
+  <action name="actionLoad_Game">
+   <property name="text">
+    <string>Load Game</string>
+   </property>
+  </action>
+  <action name="actionReset_Game">
+   <property name="text">
+    <string>Reset Game</string>
+   </property>
+  </action>
+  <action name="actionHow_To_Play">
+   <property name="text">
+    <string>How To Play</string>
+   </property>
+  </action>
+  <action name="actionAbout_Ludo">
+   <property name="text">
+    <string>About Ludo</string>
+   </property>
+  </action>
+  <action name="action4_Players">
+   <property name="text">
+    <string>4 Players</string>
+   </property>
+  </action>
+  <action name="actionLoad_Game_2">
+   <property name="text">
+    <string>Load Game</string>
+   </property>
+  </action>
+  <action name="actionSave_Game_2">
+   <property name="text">
+    <string>Save Game</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
