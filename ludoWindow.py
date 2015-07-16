@@ -11,8 +11,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_LudoWindow(object):
     def setupUi(self, LudoWindow):
         LudoWindow.setObjectName("LudoWindow")
-        LudoWindow.resize(800, 600)
-        LudoWindow.setMinimumSize(QtCore.QSize(800, 600))
+        LudoWindow.resize(900, 900)
+        LudoWindow.setMinimumSize(QtCore.QSize(900, 900))
         self.centralwidget = QtWidgets.QWidget(LudoWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -20,11 +20,13 @@ class Ui_LudoWindow(object):
         self.graphicsView = QtWidgets.QGraphicsView(self.centralwidget)
 
         self.scene = QtWidgets.QGraphicsScene(self)
-        self.scene.setSceneRect(0, 0, 500, 500)
-        self.pen = QtGui.QPen(QtCore.Qt.green)
-        self.scene.addLine(0,0,200,200,self.pen)
-        self.scene.addEllipse(400,300,100,100,self.pen)
-        # self.graphicsView.fitInView(self.scene.sceneRect(),QtCore.Qt.IgnoreAspectRatio)
+        self.scene.setSceneRect(0, 0, 800, 800)
+        self.pen = QtGui.QPen(QtCore.Qt.black)
+        self.scene.addLine(0,0,0,800,self.pen)
+        self.scene.addLine(800,0,800,800,self.pen)
+        self.scene.addLine(0,0,800,0,self.pen)
+        self.scene.addLine(0,800,800,800,self.pen)
+
         self.graphicsView.setScene(self.scene)
 
         self.graphicsView.setObjectName("graphicsView")
@@ -71,13 +73,13 @@ class Ui_LudoWindow(object):
 
     def retranslateUi(self, LudoWindow):
         _translate = QtCore.QCoreApplication.translate
-        LudoWindow.setWindowTitle(_translate("LudoWindow", "MainWindow"))
+        LudoWindow.setWindowTitle(_translate("LudoWindow", "Ludo"))
         self.menuNew.setTitle(_translate("LudoWindow", "New"))
         self.menuReset.setTitle(_translate("LudoWindow", "Reset"))
-        self.menuHelp.setTitle(_translate("LudoWindow", "He&lp"))
-        self.actionNew_Game.setText(_translate("LudoWindow", "&New Game"))
-        self.actionLoad_Game.setText(_translate("LudoWindow", "&Load Game"))
-        self.actionSave_Game.setText(_translate("LudoWindow", "&Save Game"))
-        self.actionQuit.setText(_translate("LudoWindow", "&Quit"))
-        self.actionHow_to_Play.setText(_translate("LudoWindow", "&How to Play"))
-        self.actionAbout_Ludo.setText(_translate("LudoWindow", "&About Ludo"))
+        self.menuHelp.setTitle(_translate("LudoWindow", "Help"))
+        self.actionNew_Game.setText(_translate("LudoWindow", "New Game"))
+        self.actionLoad_Game.setText(_translate("LudoWindow", "Load Game"))
+        self.actionSave_Game.setText(_translate("LudoWindow", "Save Game"))
+        self.actionQuit.setText(_translate("LudoWindow", "Quit"))
+        self.actionHow_to_Play.setText(_translate("LudoWindow", "How to Play"))
+        self.actionAbout_Ludo.setText(_translate("LudoWindow", "About Ludo"))
