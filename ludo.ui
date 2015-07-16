@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>LudoWindow</class>
+ <widget class="QMainWindow" name="LudoWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -19,10 +19,7 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout">
-   </layout>
-  </widget>
+  <widget class="QWidget" name="centralwidget"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -34,55 +31,34 @@
    </property>
    <widget class="QMenu" name="menuNew_Game">
     <property name="title">
-     <string>New</string>
+     <string>&amp;New</string>
     </property>
-    <addaction name="action1_Player"/>
-    <addaction name="actionLoad_Game_2"/>
-    <addaction name="separator"/>
-    <addaction name="actionSave_Game_2"/>
+    <addaction name="actionNew_Game"/>
+    <addaction name="actionLoad_Game"/>
+    <addaction name="actionSave_Game"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
-   <widget class="QMenu" name="menuReset_Game">
+   <widget class="QMenu" name="menuReset">
     <property name="title">
-     <string>Reset &amp;Game</string>
+     <string>Reset</string>
     </property>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
      <string>He&amp;lp</string>
     </property>
-    <addaction name="actionHow_To_Play"/>
+    <addaction name="actionHow_to_Play"/>
     <addaction name="actionAbout_Ludo"/>
    </widget>
    <addaction name="menuNew_Game"/>
-   <addaction name="menuReset_Game"/>
+   <addaction name="menuReset"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="action1_Player">
+  <action name="actionNew_Game">
    <property name="text">
     <string>New Game</string>
-   </property>
-  </action>
-  <action name="action2_Players">
-   <property name="text">
-    <string>2 Players</string>
-   </property>
-  </action>
-  <action name="action3_Players">
-   <property name="text">
-    <string>3 Players</string>
-   </property>
-  </action>
-  <action name="actionQuit">
-   <property name="text">
-    <string>Quit</string>
-   </property>
-  </action>
-  <action name="actionSave_Game">
-   <property name="text">
-    <string>Save Game</string>
    </property>
   </action>
   <action name="actionLoad_Game">
@@ -90,34 +66,24 @@
     <string>Load Game</string>
    </property>
   </action>
-  <action name="actionReset_Game">
+  <action name="actionSave_Game">
    <property name="text">
-    <string>Reset Game</string>
+    <string>Save Game</string>
    </property>
   </action>
-  <action name="actionHow_To_Play">
+  <action name="actionQuit">
    <property name="text">
-    <string>How To Play</string>
+    <string>Quit</string>
+   </property>
+  </action>
+  <action name="actionHow_to_Play">
+   <property name="text">
+    <string>How to Play</string>
    </property>
   </action>
   <action name="actionAbout_Ludo">
    <property name="text">
     <string>About Ludo</string>
-   </property>
-  </action>
-  <action name="action4_Players">
-   <property name="text">
-    <string>4 Players</string>
-   </property>
-  </action>
-  <action name="actionLoad_Game_2">
-   <property name="text">
-    <string>Load Game</string>
-   </property>
-  </action>
-  <action name="actionSave_Game_2">
-   <property name="text">
-    <string>Save Game</string>
    </property>
   </action>
  </widget>
