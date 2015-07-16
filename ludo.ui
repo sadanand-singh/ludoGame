@@ -19,7 +19,13 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QGraphicsView" name="graphicsView"/>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -58,32 +64,32 @@
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionNew_Game">
    <property name="text">
-    <string>New Game</string>
+    <string>&amp;New Game</string>
    </property>
   </action>
   <action name="actionLoad_Game">
    <property name="text">
-    <string>Load Game</string>
+    <string>&amp;Load Game</string>
    </property>
   </action>
   <action name="actionSave_Game">
    <property name="text">
-    <string>Save Game</string>
+    <string>&amp;Save Game</string>
    </property>
   </action>
   <action name="actionQuit">
    <property name="text">
-    <string>Quit</string>
+    <string>&amp;Quit</string>
    </property>
   </action>
   <action name="actionHow_to_Play">
    <property name="text">
-    <string>How to Play</string>
+    <string>&amp;How to Play</string>
    </property>
   </action>
   <action name="actionAbout_Ludo">
    <property name="text">
-    <string>About Ludo</string>
+    <string>&amp;About Ludo</string>
    </property>
   </action>
  </widget>
