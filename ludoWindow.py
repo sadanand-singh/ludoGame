@@ -7,33 +7,46 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import Qt
 
 class Ui_LudoWindow(object):
     def setupUi(self, LudoWindow):
         LudoWindow.setObjectName("LudoWindow")
-        LudoWindow.resize(900, 900)
-        LudoWindow.setMinimumSize(QtCore.QSize(900, 900))
-        self.centralwidget = QtWidgets.QWidget(LudoWindow)
-        self.centralwidget.setObjectName("centralwidget")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.graphicsView = QtWidgets.QGraphicsView(self.centralwidget)
+        LudoWindow.resize(760, 760)
+        LudoWindow.setMinimumSize(QtCore.QSize(760, 760))
+        # self.centralwidget = QtWidgets.QWidget(LudoWindow)
+        # self.centralwidget.setObjectName("centralwidget")
 
         self.scene = QtWidgets.QGraphicsScene(self)
-        self.scene.setSceneRect(0, 0, 800, 800)
+        self.scene.setSceneRect(0, 0, 720, 720)
         self.pen = QtGui.QPen(QtCore.Qt.black)
-        self.scene.addLine(0,0,0,800,self.pen)
-        self.scene.addLine(800,0,800,800,self.pen)
-        self.scene.addLine(0,0,800,0,self.pen)
-        self.scene.addLine(0,800,800,800,self.pen)
+        self.scene.addLine(0, 0, 0, 720, self.pen)
+        self.scene.addLine(720, 0, 720, 720, self.pen)
+        self.scene.addLine(0, 0, 720, 0, self.pen)
+        self.scene.addLine(0, 720, 720, 720, self.pen)
 
-        self.graphicsView.setScene(self.scene)
+        self.scene.addRect(0, 0, 288, 288, self.pen, QtGui.QBrush(Qt.green))
+        self.scene.addRect(0, 432, 288, 288, self.pen, QtGui.QBrush(Qt.yellow))
+        self.scene.addRect(432, 0, 288, 288, self.pen, QtGui.QBrush(Qt.blue))
+        self.scene.addRect(432, 432, 288, 288, self.pen, QtGui.QBrush(Qt.red))
 
+        self.scene.addRect(288, 288, 144, 144, self.pen, QtGui.QBrush(Qt.gray))
+
+        self.scene.addLine(288, 288, 432, 432, self.pen)
+        self.scene.addLine(432, 288, 288, 432, self.pen)
+
+        self.graphicsView = QtWidgets.QGraphicsView(self.scene)
         self.graphicsView.setObjectName("graphicsView")
-        self.verticalLayout.addWidget(self.graphicsView)
-        LudoWindow.setCentralWidget(self.centralwidget)
+
+        # self.verticalLayout = QtWidgets.QVBoxLayout()
+        # self.verticalLayout.setObjectName("verticalLayout")
+        # self.verticalLayout.addWidget(self.graphicsView)
+
+        # self.centralwidget.setLayout(self.verticalLayout)
+        LudoWindow.setCentralWidget(self.graphicsView)
+
         self.menubar = QtWidgets.QMenuBar(LudoWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 29))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 720, 29))
         self.menubar.setObjectName("menubar")
         self.menuNew = QtWidgets.QMenu(self.menubar)
         self.menuNew.setObjectName("menuNew")
@@ -70,6 +83,9 @@ class Ui_LudoWindow(object):
 
         self.retranslateUi(LudoWindow)
         QtCore.QMetaObject.connectSlotsByName(LudoWindow)
+
+    def resizeEvent(self, event):
+        self.graphicsView.fitInView(self.scene.itemsBoundingRect())
 
     def retranslateUi(self, LudoWindow):
         _translate = QtCore.QCoreApplication.translate
