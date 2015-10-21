@@ -14,8 +14,13 @@ class Ui_LudoWindow(object):
         LudoWindow.setObjectName("LudoWindow")
         LudoWindow.resize(760, 760)
         LudoWindow.setMinimumSize(QtCore.QSize(760, 760))
-        # self.centralwidget = QtWidgets.QWidget(LudoWindow)
-        # self.centralwidget.setObjectName("centralwidget")
+
+        self.centralwidget = QtWidgets.QWidget(LudoWindow)
+        self.centralwidget.setObjectName("centralwidget")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.graphicsView = QtWidgets.QGraphicsView(self.centralwidget)
+        self.graphicsView.setObjectName("graphicsView")
 
         self.scene = QtWidgets.QGraphicsScene(self)
         self.scene.setSceneRect(0, 0, 720, 720)
@@ -42,8 +47,8 @@ class Ui_LudoWindow(object):
         # self.verticalLayout.setObjectName("verticalLayout")
         # self.verticalLayout.addWidget(self.graphicsView)
 
-        # self.centralwidget.setLayout(self.verticalLayout)
-        LudoWindow.setCentralWidget(self.graphicsView)
+        self.verticalLayout.addWidget(self.graphicsView)
+        LudoWindow.setCentralWidget(self.centralwidget)
 
         self.menubar = QtWidgets.QMenuBar(LudoWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 720, 29))
@@ -85,6 +90,9 @@ class Ui_LudoWindow(object):
         QtCore.QMetaObject.connectSlotsByName(LudoWindow)
 
     def resizeEvent(self, event):
+        self.graphicsView.fitInView(self.scene.itemsBoundingRect())
+
+    def showEvent(self, event):
         self.graphicsView.fitInView(self.scene.itemsBoundingRect())
 
     def retranslateUi(self, LudoWindow):
