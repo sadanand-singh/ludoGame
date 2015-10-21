@@ -25,27 +25,42 @@ class Ui_LudoWindow(object):
         self.scene = QtWidgets.QGraphicsScene(self)
         self.scene.setSceneRect(0, 0, 720, 720)
         self.pen = QtGui.QPen(QtCore.Qt.black)
+        self.pen.setWidthF(2.0)
         self.scene.addLine(0, 0, 0, 720, self.pen)
         self.scene.addLine(720, 0, 720, 720, self.pen)
         self.scene.addLine(0, 0, 720, 0, self.pen)
         self.scene.addLine(0, 720, 720, 720, self.pen)
 
         self.scene.addRect(0, 0, 288, 288, self.pen, QtGui.QBrush(Qt.green))
-        self.scene.addRect(0, 432, 288, 288, self.pen, QtGui.QBrush(Qt.yellow))
-        self.scene.addRect(432, 0, 288, 288, self.pen, QtGui.QBrush(Qt.blue))
-        self.scene.addRect(432, 432, 288, 288, self.pen, QtGui.QBrush(Qt.red))
+        self.scene.addEllipse(48, 48, 66, 66, self.pen, QtGui.QBrush(Qt.white))
+        self.scene.addEllipse(168, 48, 66, 66, self.pen, QtGui.QBrush(Qt.white))
+        self.scene.addEllipse(48, 168, 66, 66, self.pen, QtGui.QBrush(Qt.white))
+        self.scene.addEllipse(160, 168, 66, 66, self.pen, QtGui.QBrush(Qt.white))
 
-        self.scene.addRect(288, 288, 144, 144, self.pen, QtGui.QBrush(Qt.gray))
+        self.scene.addRect(0, 432, 288, 288, self.pen, QtGui.QBrush(Qt.red))
+        self.scene.addEllipse(48, 480, 66, 66, self.pen, QtGui.QBrush(Qt.white))
+        self.scene.addEllipse(168, 480, 66, 66, self.pen, QtGui.QBrush(Qt.white))
+        self.scene.addEllipse(48, 598, 66, 66, self.pen, QtGui.QBrush(Qt.white))
+        self.scene.addEllipse(168, 598, 66, 66, self.pen, QtGui.QBrush(Qt.white))
+
+        self.scene.addRect(432, 0, 288, 288, self.pen, QtGui.QBrush(Qt.yellow))
+        self.scene.addEllipse(480, 48, 66, 66, self.pen, QtGui.QBrush(Qt.white))
+        self.scene.addEllipse(600, 48, 66, 66, self.pen, QtGui.QBrush(Qt.white))
+        self.scene.addEllipse(480, 168, 66, 66, self.pen, QtGui.QBrush(Qt.white))
+        self.scene.addEllipse(600, 168, 66, 66, self.pen, QtGui.QBrush(Qt.white))
+
+        self.scene.addRect(432, 432, 288, 288, self.pen, QtGui.QBrush(Qt.blue))
+        self.scene.addEllipse(480, 480, 66, 66, self.pen, QtGui.QBrush(Qt.white))
+        self.scene.addEllipse(600, 480, 66, 66, self.pen, QtGui.QBrush(Qt.white))
+        self.scene.addEllipse(480, 598, 66, 66, self.pen, QtGui.QBrush(Qt.white))
+        self.scene.addEllipse(600, 598, 66, 66, self.pen, QtGui.QBrush(Qt.white))
+
+        self.scene.addRect(288, 288, 144, 144, self.pen, QtGui.QBrush(Qt.cyan))
 
         self.scene.addLine(288, 288, 432, 432, self.pen)
         self.scene.addLine(432, 288, 288, 432, self.pen)
 
-        self.graphicsView = QtWidgets.QGraphicsView(self.scene)
-        self.graphicsView.setObjectName("graphicsView")
-
-        # self.verticalLayout = QtWidgets.QVBoxLayout()
-        # self.verticalLayout.setObjectName("verticalLayout")
-        # self.verticalLayout.addWidget(self.graphicsView)
+        self.graphicsView.setScene(self.scene)
 
         self.verticalLayout.addWidget(self.graphicsView)
         LudoWindow.setCentralWidget(self.centralwidget)
