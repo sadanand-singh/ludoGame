@@ -35,7 +35,7 @@ class Ui_LudoWindow(object):
         self.scene.addEllipse(48, 48, 66, 66, self.pen, QtGui.QBrush(Qt.white))
         self.scene.addEllipse(168, 48, 66, 66, self.pen, QtGui.QBrush(Qt.white))
         self.scene.addEllipse(48, 168, 66, 66, self.pen, QtGui.QBrush(Qt.white))
-        self.scene.addEllipse(160, 168, 66, 66, self.pen, QtGui.QBrush(Qt.white))
+        self.scene.addEllipse(168, 168, 66, 66, self.pen, QtGui.QBrush(Qt.white))
 
         self.scene.addRect(0, 432, 288, 288, self.pen, QtGui.QBrush(Qt.red))
         self.scene.addEllipse(48, 480, 66, 66, self.pen, QtGui.QBrush(Qt.white))
@@ -45,20 +45,21 @@ class Ui_LudoWindow(object):
 
         self.scene.addRect(432, 0, 288, 288, self.pen, QtGui.QBrush(Qt.yellow))
         self.scene.addEllipse(480, 48, 66, 66, self.pen, QtGui.QBrush(Qt.white))
-        self.scene.addEllipse(600, 48, 66, 66, self.pen, QtGui.QBrush(Qt.white))
+        self.scene.addEllipse(598, 48, 66, 66, self.pen, QtGui.QBrush(Qt.white))
         self.scene.addEllipse(480, 168, 66, 66, self.pen, QtGui.QBrush(Qt.white))
-        self.scene.addEllipse(600, 168, 66, 66, self.pen, QtGui.QBrush(Qt.white))
+        self.scene.addEllipse(598, 168, 66, 66, self.pen, QtGui.QBrush(Qt.white))
 
         self.scene.addRect(432, 432, 288, 288, self.pen, QtGui.QBrush(Qt.blue))
         self.scene.addEllipse(480, 480, 66, 66, self.pen, QtGui.QBrush(Qt.white))
-        self.scene.addEllipse(600, 480, 66, 66, self.pen, QtGui.QBrush(Qt.white))
+        self.scene.addEllipse(598, 480, 66, 66, self.pen, QtGui.QBrush(Qt.white))
         self.scene.addEllipse(480, 598, 66, 66, self.pen, QtGui.QBrush(Qt.white))
-        self.scene.addEllipse(600, 598, 66, 66, self.pen, QtGui.QBrush(Qt.white))
+        self.scene.addEllipse(598, 598, 66, 66, self.pen, QtGui.QBrush(Qt.white))
 
         self.scene.addRect(288, 288, 144, 144, self.pen, QtGui.QBrush(Qt.cyan))
-
         self.scene.addLine(288, 288, 432, 432, self.pen)
         self.scene.addLine(432, 288, 288, 432, self.pen)
+
+        # self.scene.addRect(0, 0, 288, 288, self.pen, QtGui.QBrush(Qt.green))
 
         self.graphicsView.setScene(self.scene)
 

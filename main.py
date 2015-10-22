@@ -2,15 +2,14 @@
 # -*- coding: utf-8 -*-
 
 """
-ZetCode PyQt5 tutorial
+Ludo PyQt5
 
-This program creates a skeleton of
-a classic GUI application with a menubar,
-toolbar, statusbar, and a central widget.
+This program creates a Ludo Window.
+And control a game of it.
 
-author: Jan Bodnar
-website: zetcode.com
-last edited: January 2015
+author: Sadanand Singh
+website: sadanand-singh.github.io
+last edited: October 2015
 """
 
 import sys
@@ -27,9 +26,9 @@ if __name__ == '__main__':
 
     app = QApplication(sys.argv)
     ex = LudoWindow()
-    f = QtGui.QFont("Arial", 10, QtGui.QFont.Bold)
+
     stat = QLabel("Red Starts First")
-    stat.setFont(f)
+    stat.setFont(QtGui.QFont("Arial", 10, QtGui.QFont.Bold))
     stat.setAlignment(QtCore.Qt.AlignCenter)
     ex.statusbar.addWidget(stat, 1)
 
