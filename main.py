@@ -27,8 +27,8 @@ if __name__ == '__main__':
 
     app = QApplication(sys.argv)
     ex = LudoWindow()
-    f = QtGui.QFont( "Arial", 10, QtGui.QFont.Bold)
-    stat = QLabel("Sadanand You Got 6")
+    f = QtGui.QFont("Arial", 10, QtGui.QFont.Bold)
+    stat = QLabel("Red Starts First")
     stat.setFont(f)
     stat.setAlignment(QtCore.Qt.AlignCenter)
     ex.statusbar.addWidget(stat, 1)
