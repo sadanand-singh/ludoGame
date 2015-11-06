@@ -9,6 +9,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt
 
+
 class Ui_LudoWindow(object):
     def setupUi(self, LudoWindow):
         LudoWindow.setObjectName("LudoWindow")

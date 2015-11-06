@@ -17,6 +17,7 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel
 from ludoWindow import Ui_LudoWindow
 from PyQt5 import QtCore, QtGui
 
+
 class LudoWindow(QMainWindow, Ui_LudoWindow):
     def __init__(self, parent=None):
         super(LudoWindow, self).__init__(parent)
