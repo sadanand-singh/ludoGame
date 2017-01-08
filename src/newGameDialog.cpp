@@ -44,70 +44,36 @@ NewGameDialog::NewGameDialog(QString title, QDialog* parent) : QDialog(parent),
     connect(cancelButton, &QPushButton::clicked, this, &QDialog::close);
     connect(okButton, &QPushButton::clicked, this, &QDialog::accept);
 
-    auto redField = playerMap["red"]->getPlayerName();
-    auto greenField = playerMap["green"]->getPlayerName();
-    auto yellowField = playerMap["yellow"]->getPlayerName();
-    auto blueField = playerMap["blue"]->getPlayerName();
+    for(auto const& key : playerMap.keys())
+    {
+        auto field = playerMap.value(key)->getPlayerName();
+        connect(field, &QLineEdit::textChanged, this, &NewGameDialog::enableOKButton);
 
-    connect(redField, &QLineEdit::textChanged, this, &NewGameDialog::enableOKButton);
-    connect(greenField, &QLineEdit::textChanged, this, &NewGameDialog::enableOKButton);
-    connect(yellowField, &QLineEdit::textChanged, this, &NewGameDialog::enableOKButton);
-    connect(blueField, &QLineEdit::textChanged, this, &NewGameDialog::enableOKButton);
-
-    auto redComputerOption = playerMap["red"]->getComputerOption();
-    auto greenComputerOption = playerMap["green"]->getComputerOption();
-    auto yellowComputerOption = playerMap["yellow"]->getComputerOption();
-    auto blueComputerOption = playerMap["blue"]->getComputerOption();
-
-    connect(redComputerOption, &QRadioButton::toggled, this, &NewGameDialog::enableOKButton);
-    connect(greenComputerOption, &QRadioButton::toggled, this, &NewGameDialog::enableOKButton);
-    connect(yellowComputerOption, &QRadioButton::toggled, this, &NewGameDialog::enableOKButton);
-    connect(blueComputerOption, &QRadioButton::toggled, this, &NewGameDialog::enableOKButton);
+        auto computerOption = playerMap.value(key)->getComputerOption();
+        connect(computerOption, &QRadioButton::toggled, this, &NewGameDialog::enableOKButton);
+    }
 }
 
 void NewGameDialog::enableOKButton()
 {
-    auto isRedHuman = playerMap["red"]->getHumanOption()->isChecked();
-    auto isGreenHuman = playerMap["green"]->getHumanOption()->isChecked();
-    auto isYellownHuman = playerMap["yellow"]->getHumanOption()->isChecked();
-    auto isBlueHuman = playerMap["blue"]->getHumanOption()->isChecked();
-
     std::set<QString> playerNames;
     auto nonEmptyNames = 0U;
+    auto ok = true;
 
-    auto redName = playerMap["red"]->getPlayerName()->text();
-    auto redOK = !redName.isEmpty() and isRedHuman;
-    if (redOK) {
-        ++nonEmptyNames;
-        playerNames.insert(redName.toLower());
+    for(auto const& key : playerMap.keys())
+    {
+        auto player = playerMap.value(key);
+        auto isHuman = player->getHumanOption()->isChecked();
+        auto name = player->getPlayerName()->text();
+        auto playerOK = !name.isEmpty() and isHuman;
+        if (playerOK) {
+            ++nonEmptyNames;
+            playerNames.insert(name.toLower());
+        }
+
+        playerOK = playerOK or !isHuman;
+        ok = ok and playerOK;
     }
-
-    auto greenName = playerMap["green"]->getPlayerName()->text();
-    auto greenOK = !greenName.isEmpty() and isGreenHuman;
-    if (greenOK) {
-        ++nonEmptyNames;
-        playerNames.insert(greenName.toLower());
-    }
-
-    auto yellowName = playerMap["yellow"]->getPlayerName()->text();
-    auto yellowOK = !yellowName.isEmpty() and isYellownHuman;
-    if (yellowOK) {
-        ++nonEmptyNames;
-        playerNames.insert(yellowName.toLower());
-    }
-
-    auto blueName = playerMap["blue"]->getPlayerName()->text();
-    auto blueOK = !blueName.isEmpty() and isBlueHuman;
-    if (blueOK) {
-        ++nonEmptyNames;
-        playerNames.insert(blueName.toLower());
-    }
-
-    redOK = redOK or !isRedHuman;
-    greenOK = greenOK or !isGreenHuman;
-    yellowOK = yellowOK or !isYellownHuman;
-    blueOK = blueOK or !isBlueHuman;
-    auto ok = redOK and greenOK and yellowOK and blueOK;
 
     // if more than two texts, disable OK button
     if (nonEmptyNames != playerNames.size())
