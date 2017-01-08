@@ -1,6 +1,6 @@
-# A Game of Ludo in Pyqt5
+# A Game of Ludo in Qt5
 
-This is my first development in QT.
+This is my first development in Qt.
 I will be using Qt5 to develop a game of Ludo.
 
 Ludo is a board game quite popular in the Indian
