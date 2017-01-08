@@ -22,10 +22,10 @@ NewGameDialog::NewGameDialog(QString title, QDialog* parent) : QDialog(parent),
     playerMap.insert(tr("yellow"), new PlayerOption(Qt::yellow));
     playerMap.insert(tr("blue"), new PlayerOption(Qt::blue));
 
-    vLayout->addWidget(playerMap.value("red"));
-    vLayout->addWidget(playerMap.value("green"));
-    vLayout->addWidget(playerMap.value("yellow"));
-    vLayout->addWidget(playerMap.value("blue"));
+    vLayout->addWidget(playerMap.value(tr("red")));
+    vLayout->addWidget(playerMap.value(tr("green")));
+    vLayout->addWidget(playerMap.value(tr("yellow")));
+    vLayout->addWidget(playerMap.value(tr("blue")));
 
     okButton->setEnabled(true);
     okButton->setDefault(true);
