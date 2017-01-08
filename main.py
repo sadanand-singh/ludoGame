@@ -9,7 +9,7 @@ And control a game of it.
 
 author: Sadanand Singh
 website: sadanand-singh.github.io
-last edited: October 2015
+last edited: October 2016
 """
 
 import sys
