@@ -1,5 +1,9 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
-  <qresource>
+  <qresource prefix="/images">
+      <file alias="game">game.png</file>
+      <file alias="clear">clear.png</file>
+      <file alias="exit">exit.png</file>
+      <file alias="dice">dice.png</file>
   </qresource>
 </RCC>

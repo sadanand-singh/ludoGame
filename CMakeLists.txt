@@ -16,6 +16,9 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 # Automatically handle MOC headers
 set(CMAKE_AUTOMOC ON)
 
+# Automatically handle RCC files
+set(CMAKE_AUTORCC ON)
+
 # Automatically handle ui files
 set(CMAKE_AUTOUIC ON)
 

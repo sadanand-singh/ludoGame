@@ -3,7 +3,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/defines.h.cmake
 
 # C++ sources files
 file(GLOB_RECURSE CPP_SOURCES *.cpp)
-qt5_add_resources(RESOURCE_FILES ../resources/resources.qrc)
+set(RESOURCE_FILES ../resources/resources.qrc)
 
 # Create executable
 add_executable(${CMAKE_PROJECT_NAME} ${CPP_SOURCES} ${RESOURCE_FILES})
