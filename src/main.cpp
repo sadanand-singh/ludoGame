@@ -1,12 +1,12 @@
 #include <QApplication>
-#include "newGameDialog.h"
+#include "game.h"
 
 int main( int argc, char* argv[] )
 {
     QApplication app( argc, argv );
 
-    NewGameDialog *dialog = new NewGameDialog("Choices...");
-    dialog->show();
+    Game *game = new Game();
+    game->show();
 
     return app.exec();
 }
