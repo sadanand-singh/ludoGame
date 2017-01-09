@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QMap>
+#include <QPair>
 
 class PlayerOption;
 class QString;
@@ -26,6 +27,10 @@ class NewGameDialog : public QDialog
 
     private slots:
     void enableOKButton();
+    void savePlayerData();
+
+    signals:
+    void startNewGame(const QMap<QString, QPair<bool, QString>> data);
 
     public:
     NewGameDialog(QString title, QDialog* parent = nullptr);

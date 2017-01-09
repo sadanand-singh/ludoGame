@@ -42,7 +42,7 @@ NewGameDialog::NewGameDialog(QString title, QDialog* parent) : QDialog(parent),
     this->setModal(true);
 
     connect(cancelButton, &QPushButton::clicked, this, &QDialog::close);
-    connect(okButton, &QPushButton::clicked, this, &QDialog::accept);
+    connect(okButton, &QPushButton::clicked, this, &NewGameDialog::savePlayerData);
 
     for(auto const& key : playerMap.keys())
     {
@@ -80,4 +80,21 @@ void NewGameDialog::enableOKButton()
         ok = false;
 
     okButton->setEnabled(ok);
+}
+
+void NewGameDialog::savePlayerData()
+{
+    QMap<QString, QPair<bool, QString>> playerData;
+
+    for(auto const& key : playerMap.keys())
+    {
+        auto player = playerMap.value(key);
+        auto isHuman = player->getHumanOption()->isChecked();
+        auto name = QString("");
+        if (isHuman) name = player->getPlayerName()->text();
+        playerData.insert(key, qMakePair(isHuman, name));
+    }
+
+    this->accept();
+    emit startNewGame(playerData);
 }
