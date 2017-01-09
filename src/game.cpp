@@ -70,6 +70,7 @@ void Game::newGame()
     auto dialog = new NewGameDialog(tr("Choose Players..."));
     connect(dialog, &NewGameDialog::startNewGame, this, &Game::start);
     dialog->exec();
+    delete dialog;
 }
 
 void Game::start(const QMap<QString, QPair<bool, QString>> playerData)
