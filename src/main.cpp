@@ -5,8 +5,8 @@ int main( int argc, char* argv[] )
 {
     QApplication app( argc, argv );
 
-    Game *game = new Game();
-    game->show();
+    Game game;
+    game.show();
 
     return app.exec();
 }
