@@ -11,7 +11,7 @@
 
 NewGameDialog::NewGameDialog(QString title, QWidget* parent) : QDialog(parent),
     vLayout(new QVBoxLayout),
-    okButton(new QPushButton(tr("OK"))),
+    okButton(new QPushButton(tr("Start Demo"))),
     cancelButton(new QPushButton(tr("Cancel"))),
     spacer(new OnDemandSpacer),
     hLayoutButton(new QHBoxLayout),
@@ -59,6 +59,7 @@ void NewGameDialog::enableOKButton()
     std::set<QString> playerNames;
     auto nonEmptyNames = 0U;
     auto ok = true;
+    auto anyHuman = false;
 
     for(auto const& key : playerMap.keys())
     {
@@ -73,11 +74,16 @@ void NewGameDialog::enableOKButton()
 
         playerOK = playerOK or !isHuman;
         ok = ok and playerOK;
+        anyHuman = anyHuman or isHuman;
     }
 
     // if more than two texts, disable OK button
     if (nonEmptyNames != playerNames.size())
         ok = false;
+
+    auto buttonTitle = tr("Start Demo");
+    if (anyHuman) buttonTitle = tr("Start Game");
+    okButton->setText(buttonTitle);
 
     okButton->setEnabled(ok);
 }
