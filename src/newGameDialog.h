@@ -33,7 +33,7 @@ class NewGameDialog : public QDialog
     void startNewGame(const QMap<QString, QPair<bool, QString>> data);
 
     public:
-    NewGameDialog(QString title, QDialog* parent = nullptr);
+    NewGameDialog(QString title, QWidget* parent = nullptr);
 };
 
 #endif

@@ -9,7 +9,7 @@
 #include <QLineEdit>
 #include <set>
 
-NewGameDialog::NewGameDialog(QString title, QDialog* parent) : QDialog(parent),
+NewGameDialog::NewGameDialog(QString title, QWidget* parent) : QDialog(parent),
     vLayout(new QVBoxLayout),
     okButton(new QPushButton(tr("OK"))),
     cancelButton(new QPushButton(tr("Cancel"))),
