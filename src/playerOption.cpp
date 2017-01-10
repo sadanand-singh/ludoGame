@@ -20,10 +20,10 @@ PlayerOption::PlayerOption(QColor color, QWidget* parent) : QWidget( parent),
     playerName->setPlaceholderText("Enter player name...");
     playerName->setClearButtonEnabled(true);
     playerName->setVisible(false);
-    playerName->setFixedWidth(150);
+    playerName->setFixedWidth(180);
 
     spacer->setVisible(true);
-    spacer->setFixedWidth(150);
+    spacer->setFixedWidth(180);
 
     hLayout->addWidget(icon);
     hLayout->addWidget(computerOption);
