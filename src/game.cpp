@@ -4,7 +4,7 @@
 
 Game::Game(QMainWindow* parent) : QMainWindow(parent)
 {
-    QIcon icon(":images/game");
+    QIcon icon(":/images/game");
     this->setWindowIcon(icon);
 
     createActions();
