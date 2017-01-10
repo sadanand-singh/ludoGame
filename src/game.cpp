@@ -53,7 +53,7 @@ void Game::createActions()
     howToPlayAct->setStatusTip(tr("Show How to Play Ludo"));
 
     auto aboutAct = helpMenu->addAction(tr("&About"), this, &Game::about);
-    aboutAct->setStatusTip(tr("Show the application's About box"));
+    aboutAct->setStatusTip(tr("Show Details About Ludo"));
 
     auto aboutQtAct = helpMenu->addAction(tr("About &Qt"), qApp, &QApplication::aboutQt);
     aboutQtAct->setStatusTip(tr("Show the Qt library's About box"));
