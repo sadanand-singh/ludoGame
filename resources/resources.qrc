@@ -5,5 +5,6 @@
       <file alias="clear">clear.png</file>
       <file alias="exit">exit.png</file>
       <file alias="dice">dice.png</file>
+      <file alias="gif">dice.gif</file>
   </qresource>
 </RCC>
