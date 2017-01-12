@@ -7,6 +7,7 @@
 
 class QAction;
 class QLabel;
+class Board;
 
 class Game : public QMainWindow
 {
@@ -17,6 +18,7 @@ class Game : public QMainWindow
     QAction *newGameAction;
     QAction *resetAction;
     QLabel *statusLabel;
+    Board *board;
 
     protected:
     // void saveState();

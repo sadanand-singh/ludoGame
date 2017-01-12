@@ -1,8 +1,10 @@
 #include "game.h"
+#include "board.h"
 #include "newGameDialog.h"
 #include <QtWidgets>
 
-Game::Game(QMainWindow* parent) : QMainWindow(parent)
+Game::Game(QMainWindow* parent) : QMainWindow(parent),
+    board(nullptr)
 {
     QIcon icon(":/images/game");
     this->setWindowIcon(icon);
@@ -10,9 +12,9 @@ Game::Game(QMainWindow* parent) : QMainWindow(parent)
     createActions();
     createStatusBar();
 
-    auto w = new QWidget();
-    w->setFixedSize(800, 800);
-    this->setCentralWidget(w);
+    board = new Board(this);
+    this->setCentralWidget(board);
+    this->setFixedSize(635, 700);
 }
 
 void Game::createActions()
@@ -98,7 +100,7 @@ void Game::resetGame()
 void Game::about()
 {
    QMessageBox::about(this, tr("About Ludo"),
-            tr("<b>Ludo</b> is board game. <br>"
+            tr("<b>Ludo</b> is a board game. <br>"
                "&copy; Sadanand Singh 2016-17"));
 }
 
