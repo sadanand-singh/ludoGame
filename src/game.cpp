@@ -64,7 +64,7 @@ void Game::createActions()
 void Game::createStatusBar()
 {
     statusLabel = new QLabel(tr("Ready"));
-    statusBar()->addWidget(statusLabel);
+    statusBar()->addPermanentWidget(statusLabel);
 }
 
 void Game::newGame()
