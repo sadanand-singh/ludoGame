@@ -21,13 +21,13 @@ Board::Board(QWidget *parent) : QWidget(parent),
     QGraphicsRectItem *rect = scene->addRect(QRectF(0, 0, 600, 600));
     rect->setPen(QPen(Qt::black, 2.0));
 
-    auto redField = std::make_unique<HomeField>(0, 0, Qt::red, scene);
+    auto redField = std::unique_ptr<HomeField>(new HomeField(0, 0, 0, Qt::red, scene));
     home.append(redField.get());
-    auto greenField = std::make_unique<HomeField>(360, 0, Qt::green, scene);
+    auto greenField = std::unique_ptr<HomeField>(new HomeField(360, 0, 90, Qt::green, scene));
     home.append(greenField.get());
-    auto yellowField = std::make_unique<HomeField>(360, 360, Qt::yellow, scene);
+    auto yellowField = std::unique_ptr<HomeField>(new HomeField(360, 360, 180, Qt::yellow, scene));
     home.append(yellowField.get());
-    auto = std::make_unique<HomeField>(0, 360, Qt::blue, scene);
+    auto blueField = std::unique_ptr<HomeField>(new HomeField(0, 360, 270, Qt::blue, scene));
     home.append(blueField.get());
 
     QGraphicsRectItem *end = scene->addRect(QRectF(240, 240, 120, 120));

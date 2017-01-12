@@ -19,7 +19,6 @@ class Board : public QWidget
     QGraphicsView *view;
     // QList<QGraphicsItem*> field;
     QList<HomeField*> home;
-    // QGraphicsItemGroup* endBox;
 
     public:
     Board(QWidget *parent = nullptr);
