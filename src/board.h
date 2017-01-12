@@ -19,7 +19,7 @@ class Board : public QWidget
     QGraphicsView *view;
     QList<QGraphicsRectItem*> field;
     QList<HomeField*> home;
-    void drawSpecial(unsigned index);
+    void drawSpecial(unsigned index, QColor color = Qt::darkGray);
 
     public:
     Board(QWidget *parent = nullptr);

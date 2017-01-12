@@ -135,23 +135,28 @@ Board::Board(QWidget *parent) : QWidget(parent),
     drawSpecial(27);
     drawSpecial(40);
 
+    drawSpecial(9, Qt::black);
+    drawSpecial(22, Qt::black);
+    drawSpecial(35, Qt::black);
+    drawSpecial(48, Qt::black);
 
     auto *vLayout =  new QVBoxLayout();
     this->setLayout(vLayout);
     vLayout->addWidget(view);
 }
 
-void Board::drawSpecial(unsigned index)
+void Board::drawSpecial(unsigned index, QColor color)
 {
     auto brect = field.at(index)->boundingRect();
     auto c = brect.center();
-    QPolygonF T;
-    T.append(QPointF(c.x()-10, c.y()-10));
-    T.append(QPointF(c.x()+10, c.y()-10));
-    T.append(QPointF(c.x(), c.y()+10));
-    T.append(QPointF(c.x()-10, c.y()-10));
-    // Add the triangle polygon to the scene
-    auto triangle = scene->addPolygon(T);
-    triangle->setPen(QPen(Qt::black, 2.0));
-    triangle->setBrush(QBrush(Qt::black));
+    auto line = scene->addLine(c.x()-8, c.y()-3, c.x()+8, c.y()-3);
+    line->setPen(QPen(color, 2.0));
+    line = scene->addLine(c.x()+8, c.y()-3, c.x()-5, c.y()+8);
+    line->setPen(QPen(color, 2.0));
+    line = scene->addLine(c.x()-5, c.y()+8, c.x(), c.y()-8);
+    line->setPen(QPen(color, 2.0));
+    line = scene->addLine(c.x(), c.y()-8, c.x()+5, c.y()+8);
+    line->setPen(QPen(color, 2.0));
+    line = scene->addLine(c.x()+5, c.y()+8, c.x()-8, c.y()-3);
+    line->setPen(QPen(color, 2.0));
 }
