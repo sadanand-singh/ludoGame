@@ -2,12 +2,15 @@
 #include <QGraphicsScene>
 #include <QGraphicsEllipseItem>
 #include <QGraphicsRectItem>
+#include <QGraphicsPolygonItem>
+#include <QPolygonF>
 
-HomeField::HomeField(qreal x, qreal y, QColor c, QGraphicsScene *scene) :
+HomeField::HomeField(qreal x, qreal y, qreal r, QColor c, QGraphicsScene *scene) :
     startX(x),
     startY(y),
     color(c),
-    rect(nullptr)
+    rect(nullptr),
+    triangle(nullptr)
 {
     rect = scene->addRect(QRectF(x, y, 240, 240));
     rect->setPen(QPen(Qt::black, 2.0));
@@ -32,6 +35,19 @@ HomeField::HomeField(qreal x, qreal y, QColor c, QGraphicsScene *scene) :
     c4->setPen(QPen(Qt::black, 2.0));
     c4->setBrush(QBrush(Qt::white));
     circles.append(c4);
+
+    // Describe a closed triangle
+    QPolygonF T;
+    T.append(QPointF(240, 240));
+    T.append(QPointF(240, 360));
+    T.append(QPointF(300, 300));
+    T.append(QPointF(240, 240));
+    // Add the triangle polygon to the scene
+    triangle = scene->addPolygon(T);
+    triangle->setPen(QPen(Qt::black, 2.0));
+    triangle->setBrush(QBrush(color));
+    triangle->setTransformOriginPoint(QPointF(300, 300));
+    triangle->setRotation(r);
 }
 
 QList<QGraphicsEllipseItem*> HomeField::getHomeField()
@@ -42,4 +58,9 @@ QList<QGraphicsEllipseItem*> HomeField::getHomeField()
 QColor HomeField::getColor()
 {
     return this->color;
+}
+
+QGraphicsPolygonItem* HomeField::getEndZone()
+{
+    return this->triangle;
 }

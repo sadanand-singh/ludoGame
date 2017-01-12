@@ -4,6 +4,7 @@
 #include <QtCore>
 class QGraphicsEllipseItem;
 class QGraphicsRectItem;
+class QGraphicsPolygonItem;
 class QGraphicsScene;
 class QColor;
 
@@ -14,12 +15,14 @@ class HomeField
     qreal startY;
     const QColor& color;
     QGraphicsRectItem *rect;
+    QGraphicsPolygonItem *triangle;
     QList<QGraphicsEllipseItem*> circles;
 
     public:
-    HomeField(qreal x, qreal y, QColor color, QGraphicsScene *scene);
+    HomeField(qreal x, qreal y, qreal r, QColor color, QGraphicsScene *scene);
     QList<QGraphicsEllipseItem*> getHomeField();
     QColor getColor();
+    QGraphicsPolygonItem* getEndZone();
 
 };
 
