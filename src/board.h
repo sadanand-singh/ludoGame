@@ -6,7 +6,7 @@
 
 class QGraphicsScene;
 class QGraphicsView;
-class QGraphicsItem;
+class QGraphicsRectItem;
 class QGraphicsItemGroup;
 class HomeField;
 
@@ -17,8 +17,9 @@ class Board : public QWidget
     private:
     QGraphicsScene *scene;
     QGraphicsView *view;
-    // QList<QGraphicsItem*> field;
+    QList<QGraphicsRectItem*> field;
     QList<HomeField*> home;
+    void drawSpecial(unsigned index);
 
     public:
     Board(QWidget *parent = nullptr);
