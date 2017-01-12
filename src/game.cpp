@@ -14,7 +14,7 @@ Game::Game(QMainWindow* parent) : QMainWindow(parent),
 
     board = new Board(this);
     this->setCentralWidget(board);
-    this->setFixedSize(635, 700);
+    this->setFixedSize(635, 720);
 }
 
 void Game::createActions()
