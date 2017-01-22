@@ -1,4 +1,5 @@
 #include "homeField.h"
+#include "field.h"
 #include <QGraphicsScene>
 #include <QGraphicsEllipseItem>
 #include <QGraphicsRectItem>
@@ -10,7 +11,8 @@ HomeField::HomeField(qreal x, qreal y, qreal r, QColor c, QGraphicsScene *scene)
     startY(y),
     color(c),
     rect(nullptr),
-    triangle(nullptr)
+    triangle(nullptr),
+    nextField(nullptr)
 {
     rect = scene->addRect(QRectF(x, y, 240, 240));
     rect->setPen(QPen(Qt::black, 2.0));
@@ -63,4 +65,9 @@ QColor HomeField::getColor()
 QGraphicsPolygonItem* HomeField::getEndZone()
 {
     return this->triangle;
+}
+
+void HomeField::setNextField(Field *field)
+{
+    this->nextField = field;
 }

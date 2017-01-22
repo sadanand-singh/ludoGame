@@ -1,9 +1,9 @@
 #include "board.h"
+#include "field.h"
 #include "homeField.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QGraphicsItem>
-#include <QGraphicsItemGroup>
 #include <QVBoxLayout>
 #include <memory>
 
@@ -22,105 +22,107 @@ Board::Board(QWidget *parent) : QWidget(parent),
     QGraphicsRectItem *rect = scene->addRect(QRectF(0, 0, 600, 600));
     rect->setPen(QPen(Qt::black, 2.0));
 
-    auto redField = std::unique_ptr<HomeField>(new HomeField(0, 0, 0, Qt::red, scene));
-    home.append(redField.get());
-    auto greenField = std::unique_ptr<HomeField>(new HomeField(360, 0, 90, Qt::green, scene));
-    home.append(greenField.get());
-    auto yellowField = std::unique_ptr<HomeField>(new HomeField(360, 360, 180, Qt::yellow, scene));
-    home.append(yellowField.get());
-    auto blueField = std::unique_ptr<HomeField>(new HomeField(0, 360, 270, Qt::blue, scene));
-    home.append(blueField.get());
-
     QGraphicsRectItem *end = scene->addRect(QRectF(240, 240, 120, 120));
     end->setPen(QPen(Qt::black, 2.0));
 
     // add main field
     for (qreal x = 0; x < 240; x += 40)
     {
-        auto box = scene->addRect(x, 240, 40, 40);
-        box->setPen(QPen(Qt::black, 2.0));
+        Field* box = new Field(x, 240, 40, 40);
+        scene->addItem(dynamic_cast<QGraphicsRectItem*>(box));
         field.append(box);
     }
     for (qreal y = 200; y >= 0; y -= 40)
     {
-        auto box = scene->addRect(240, y, 40, 40);
-        box->setPen(QPen(Qt::black, 2.0));
+        Field* box = new Field(240, y, 40, 40);
+        scene->addItem(dynamic_cast<QGraphicsRectItem*>(box));
         field.append(box);
     }
-    auto box1 = scene->addRect(280, 0, 40, 40);
-    box1->setPen(QPen(Qt::black, 2.0));
+
+    Field* box1 = new Field(280, 0, 40, 40);
+    scene->addItem(dynamic_cast<QGraphicsRectItem*>(box1));
     field.append(box1);
+
     for (qreal y = 0; y < 240; y += 40)
     {
-        auto box = scene->addRect(320, y, 40, 40);
-        box->setPen(QPen(Qt::black, 2.0));
+        Field* box = new Field(320, y, 40, 40);
+        scene->addItem(dynamic_cast<QGraphicsRectItem*>(box));
         field.append(box);
     }
     for (qreal x = 360; x < 600; x += 40)
     {
-        auto box = scene->addRect(x, 240, 40, 40);
-        box->setPen(QPen(Qt::black, 2.0));
+        Field* box = new Field(x, 240, 40, 40);
+        scene->addItem(dynamic_cast<QGraphicsRectItem*>(box));
         field.append(box);
     }
-    auto box2 = scene->addRect(560, 280, 40, 40);
-    box2->setPen(QPen(Qt::black, 2.0));
+
+    Field* box2 = new Field(560, 280, 40, 40);
+    scene->addItem(dynamic_cast<QGraphicsRectItem*>(box2));
     field.append(box2);
+
     for (qreal x = 560; x >= 360; x -= 40)
     {
-        auto box = scene->addRect(x, 320, 40, 40);
-        box->setPen(QPen(Qt::black, 2.0));
+        Field* box = new Field(x, 320, 40, 40);
+        scene->addItem(dynamic_cast<QGraphicsRectItem*>(box));
         field.append(box);
     }
     for (qreal y = 360; y < 600; y += 40)
     {
-        auto box = scene->addRect(320, y, 40, 40);
-        box->setPen(QPen(Qt::black, 2.0));
+        Field* box = new Field(320, y, 40, 40);
+        scene->addItem(dynamic_cast<QGraphicsRectItem*>(box));
         field.append(box);
     }
-    auto box3 = scene->addRect(280, 560, 40, 40);
-    box3->setPen(QPen(Qt::black, 2.0));
+
+    Field* box3 = new Field(280, 560, 40, 40);
+    scene->addItem(dynamic_cast<QGraphicsRectItem*>(box3));
     field.append(box3);
+
     for (qreal y = 560; y >= 360; y -= 40)
     {
-        auto box = scene->addRect(240, y, 40, 40);
-        box->setPen(QPen(Qt::black, 2.0));
+        Field* box = new Field(240, y, 40, 40);
+        scene->addItem(dynamic_cast<QGraphicsRectItem*>(box));
         field.append(box);
     }
     for (qreal x = 200; x >= 0; x -= 40)
     {
-        auto box = scene->addRect(x, 320, 40, 40);
-        box->setPen(QPen(Qt::black, 2.0));
+        Field* box = new Field(x, 320, 40, 40);
+        scene->addItem(dynamic_cast<QGraphicsRectItem*>(box));
         field.append(box);
     }
-    auto box4 = scene->addRect(0, 280, 40, 40);
-    box4->setPen(QPen(Qt::black, 2.0));
+
+    Field* box4 = new Field(0, 280, 40, 40);
+    scene->addItem(dynamic_cast<QGraphicsRectItem*>(box4));
     field.append(box4);
 
     for (qreal x = 40; x < 240; x += 40)
     {
-        auto box = scene->addRect(x, 280, 40, 40);
-        box->setPen(QPen(Qt::black, 2.0));
+        Field* box = new Field(x, 280, 40, 40);
+        box->makeSafe(Qt::red);
+        scene->addItem(dynamic_cast<QGraphicsRectItem*>(box));
         box->setBrush(QBrush(Qt::red));
         field.append(box);
     }
     for (qreal y = 40; y < 240; y += 40)
     {
-        auto box = scene->addRect(280, y, 40, 40);
-        box->setPen(QPen(Qt::black, 2.0));
+        Field* box = new Field(280, y, 40, 40);
+        box->makeSafe(Qt::green);
+        scene->addItem(dynamic_cast<QGraphicsRectItem*>(box));
         box->setBrush(QBrush(Qt::green));
         field.append(box);
     }
     for (qreal x = 520; x >= 360; x -= 40)
     {
-        auto box = scene->addRect(x, 280, 40, 40);
-        box->setPen(QPen(Qt::black, 2.0));
+        Field* box = new Field(x, 280, 40, 40);
+        box->makeSafe(Qt::yellow);
+        scene->addItem(dynamic_cast<QGraphicsRectItem*>(box));
         box->setBrush(QBrush(Qt::yellow));
         field.append(box);
     }
     for (qreal y = 360; y < 560; y += 40)
     {
-        auto box = scene->addRect(280, y, 40, 40);
-        box->setPen(QPen(Qt::black, 2.0));
+        Field* box = new Field(280, y, 40, 40);
+        box->makeSafe(Qt::yellow);
+        scene->addItem(dynamic_cast<QGraphicsRectItem*>(box));
         box->setBrush(QBrush(Qt::blue));
         field.append(box);
     }
@@ -144,9 +146,57 @@ Board::Board(QWidget *parent) : QWidget(parent),
     drawSpecial(35, Qt::black);
     drawSpecial(48, Qt::black);
 
+    setupNextField();
+    setupNextSafeZone();
+
+    auto redField = std::unique_ptr<HomeField>(new HomeField(0, 0, 0, Qt::red, scene));
+    redField->setNextField(field.at(1));
+    home.append(redField.get());
+    auto greenField = std::unique_ptr<HomeField>(new HomeField(360, 0, 90, Qt::green, scene));
+    greenField->setNextField(field.at(14));
+    home.append(greenField.get());
+    auto yellowField = std::unique_ptr<HomeField>(new HomeField(360, 360, 180, Qt::yellow, scene));
+    yellowField->setNextField(field.at(27));
+    home.append(yellowField.get());
+    auto blueField = std::unique_ptr<HomeField>(new HomeField(0, 360, 270, Qt::blue, scene));
+    blueField->setNextField(field.at(40));
+    home.append(blueField.get());
+
     auto *vLayout =  new QVBoxLayout();
     this->setLayout(vLayout);
     vLayout->addWidget(view);
+}
+
+void Board::setupNextField()
+{
+    QVector<unsigned> ends {56, 61, 66, 71};
+
+    for(auto& box : field)
+    {
+        auto id = field.indexOf(box);
+
+        // if `id` is not in ends
+        if(ends.indexOf(id) == -1)
+        {
+            id = (id == 51) ? 0 : id + 1;
+            box->setNextField(field.at(id));
+        }
+    }
+}
+
+void Board::setupNextSafeZone()
+{
+    QVector<QPair<unsigned, unsigned>> endSafePairs;
+    endSafePairs.append(qMakePair(51, 52));
+    endSafePairs.append(qMakePair(12, 57));
+    endSafePairs.append(qMakePair(25, 62));
+    endSafePairs.append(qMakePair(38, 67));
+
+    for(auto& espair : endSafePairs)
+    {
+        auto box = field.at(espair.first);
+        box->setSafeField(field.at(espair.second));
+    }
 }
 
 QGraphicsRectItem* Board::getDiceBox()
@@ -157,6 +207,8 @@ QGraphicsRectItem* Board::getDiceBox()
 void Board::drawSpecial(unsigned index, QColor color)
 {
     auto brect = field.at(index)->boundingRect();
+    field.at(index)->makeSpecial();
+
     auto c = brect.center();
     auto line = scene->addLine(c.x()-8, c.y()-3, c.x()+8, c.y()-3);
     line->setPen(QPen(color, 2.0));

@@ -1,0 +1,2 @@
+#ifndef FIGURE_HEADER
+#define FIGURE_HEADER
