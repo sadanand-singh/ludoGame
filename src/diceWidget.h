@@ -1,32 +1,25 @@
 #ifndef DICEWIDGET_HEADER
 #define DICEWIDGET_HEADER
 
-#include <QGraphicsObject>
-#include <QList>
+#include <QObject>
+#include <QGraphicsPixmapItem>
 #include <random>
 
-class QPixmap;
-
-class DiceWidget : public QGraphicsObject
+class DiceWidget : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 
     protected:
     bool enabled;
     int dice;
-    QList<QPixmap*> images;
+    QList<QPixmap> images;
     std::random_device r;
     std::uniform_int_distribution<int> uniform_dist;
 
     public:
-    explicit DiceWidget(QGraphicsItem *parent = 0);
-    QRectF boundingRect() const Q_DECL_OVERRIDE;
-    void setEnabled(bool enabled);
-    // overriding paint()
-    void paint(QPainter *painter,
-               const QStyleOptionGraphicsItem *option,
-               QWidget *widget) Q_DECL_OVERRIDE;
+    explicit DiceWidget(QGraphicsItem *parent = nullptr);
     void mousePressEvent(QGraphicsSceneMouseEvent *e) Q_DECL_OVERRIDE;
+    void setEnabled(bool enabled);
     void resetDice();
 
     signals:

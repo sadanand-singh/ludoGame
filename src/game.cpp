@@ -93,7 +93,9 @@ void Game::start(const QMap<QString, QPair<bool, QString>> playerData)
 
     // draw dice at the center of the board
     dice = new DiceWidget();
-    dice->setPos(board->getDiceBox()->boundingRect().topLeft());
+    auto dicePos = board->getDiceBox()->boundingRect().topLeft();
+    dicePos -= QPointF(10, 10);
+    dice->setPos(dicePos);
     board->getScene()->addItem(dice);
     connect(dice, &DiceWidget::diceRolled, this, &Game::updateStatusMessage);
 }
