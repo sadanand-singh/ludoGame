@@ -19,10 +19,14 @@ class Board : public QWidget
     QGraphicsView *view;
     QList<QGraphicsRectItem*> field;
     QList<HomeField*> home;
+    QGraphicsRectItem *diceBox;
+
     void drawSpecial(unsigned index, QColor color = Qt::darkGray);
 
     public:
     Board(QWidget *parent = nullptr);
+    QGraphicsScene* getScene();
+    QGraphicsRectItem* getDiceBox();
 };
 
 #endif

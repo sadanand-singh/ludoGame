@@ -1,10 +1,12 @@
 #include "game.h"
 #include "board.h"
 #include "newGameDialog.h"
+#include "diceWidget.h"
 #include <QtWidgets>
 
 Game::Game(QMainWindow* parent) : QMainWindow(parent),
-    board(nullptr)
+    board(nullptr),
+    dice(nullptr)
 {
     QIcon icon(":/images/game");
     this->setWindowIcon(icon);

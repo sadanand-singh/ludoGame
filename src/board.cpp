@@ -9,7 +9,8 @@
 
 Board::Board(QWidget *parent) : QWidget(parent),
     scene(nullptr),
-    view(nullptr)
+    view(nullptr),
+    diceBox(nullptr)
 {
     view = new QGraphicsView();
     scene = new QGraphicsScene(this);
@@ -124,6 +125,9 @@ Board::Board(QWidget *parent) : QWidget(parent),
         field.append(box);
     }
 
+    diceBox = scene->addRect(270, 270, 60, 60);
+    diceBox->setVisible(false);
+
     //special start boxes
     field.at(1)->setBrush(QBrush(Qt::red));
     field.at(14)->setBrush(QBrush(Qt::green));
@@ -145,6 +149,11 @@ Board::Board(QWidget *parent) : QWidget(parent),
     vLayout->addWidget(view);
 }
 
+QGraphicsRectItem* Board::getDiceBox()
+{
+    return this->diceBox;
+}
+
 void Board::drawSpecial(unsigned index, QColor color)
 {
     auto brect = field.at(index)->boundingRect();
@@ -159,4 +168,9 @@ void Board::drawSpecial(unsigned index, QColor color)
     line->setPen(QPen(color, 2.0));
     line = scene->addLine(c.x()+5, c.y()+8, c.x()-8, c.y()-3);
     line->setPen(QPen(color, 2.0));
+}
+
+QGraphicsScene* Board::getScene()
+{
+    return this->scene;
 }
