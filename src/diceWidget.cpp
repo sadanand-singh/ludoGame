@@ -30,25 +30,39 @@ void DiceWidget::mousePressEvent(QGraphicsSceneMouseEvent *e)
 {
     if (not enabled) return;
 
-    QTimer::singleShot(1000, this, SLOT(roll()));
+    roll();
     QGraphicsItem::mousePressEvent(e);
+}
+
+void DiceWidget::throwDice()
+{
+    std::mt19937 e1(r());
+    dice = uniform_dist(e1);
+    update();
+    enabled = false;
+    emit diceRolled(dice);
+}
+
+void DiceWidget::resetDice()
+{
+    dice = 0;
+    update();
+    enabled = true;
 }
 
 void DiceWidget::roll()
 {
     if (not enabled) return;
 
-    std::mt19937 e1(r());
-    dice = uniform_dist(e1);
+    dice = 0;
     auto animation = new QPropertyAnimation(this, "rotation");
-    animation->setDuration(500);
+    animation->setDuration(1000);
     animation->setStartValue(0);
     animation->setEndValue(360);
     animation->setEasingCurve(QEasingCurve::Linear);
     animation->start(QAbstractAnimation::DeleteWhenStopped);
 
-    update();
-    enabled = false;
+    connect(animation, &QAbstractAnimation::finished, this, &DiceWidget::throwDice);
 }
 
 void DiceWidget::setEnabled(bool enabled)

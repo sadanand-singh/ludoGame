@@ -95,8 +95,13 @@ void Game::start(const QMap<QString, QPair<bool, QString>> playerData)
     dice = new DiceWidget();
     dice->setPos(board->getDiceBox()->boundingRect().topLeft());
     board->getScene()->addItem(dice);
-    dice->setEnabled(true);
+    connect(dice, &DiceWidget::diceRolled, this, &Game::updateStatusMessage);
+}
 
+void Game::updateStatusMessage(int d)
+{
+    auto msg = QStringLiteral("Player %1 You got %2!").arg("RED").arg(d);
+    statusLabel->setText(msg);
 }
 
 void Game::resetGame()

@@ -32,6 +32,7 @@ class Game : public QMainWindow
     void howToPlay();
     void newGame();
     void resetGame();
+    void updateStatusMessage(int diceValue);
     void start(const QMap<QString, QPair<bool, QString>> data);
 
     public:

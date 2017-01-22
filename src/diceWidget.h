@@ -25,13 +25,16 @@ class DiceWidget : public QGraphicsObject
     // overriding paint()
     void paint(QPainter *painter,
                const QStyleOptionGraphicsItem *option,
-               QWidget *widget);
-    void mousePressEvent(QGraphicsSceneMouseEvent *e);
+               QWidget *widget) Q_DECL_OVERRIDE;
+    void mousePressEvent(QGraphicsSceneMouseEvent *e) Q_DECL_OVERRIDE;
+    void resetDice();
+
+    signals:
+    void diceRolled(const int dice);
 
     private slots:
     void roll();
-
-
+    void throwDice();
 };
 
 #endif
