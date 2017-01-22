@@ -22,7 +22,7 @@ void Game::createActions()
     auto gameMenu = menuBar()->addMenu(tr("&Game"));
     auto gameToolBar = addToolBar(tr("Game"));
     gameToolBar->setMovable(false);
-    const QIcon newIcon = QIcon(":/images/dice");
+    const QIcon newIcon = QIcon(":/images/icon");
     newGameAction = new QAction(newIcon, tr("&New Game"), this);
     newGameAction->setShortcuts(QKeySequence::New);
     newGameAction->setStatusTip(tr("Start a new game"));
@@ -88,6 +88,13 @@ void Game::start(const QMap<QString, QPair<bool, QString>> playerData)
         auto name = data.second;
         // set various parts of the game
     }
+
+    // draw dice at the center of the board
+    dice = new DiceWidget();
+    dice->setPos(board->getDiceBox()->boundingRect().topLeft());
+    board->getScene()->addItem(dice);
+    dice->setEnabled(true);
+
 }
 
 void Game::resetGame()

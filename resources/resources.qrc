@@ -4,7 +4,13 @@
       <file alias="game">game.png</file>
       <file alias="clear">clear.png</file>
       <file alias="exit">exit.png</file>
-      <file alias="dice">dice.png</file>
-      <file alias="gif">dice.gif</file>
+      <file alias="icon">icon.png</file>
+      <file alias="dice1">dice-1.png</file>
+      <file alias="dice2">dice-2.png</file>
+      <file alias="dice3">dice-3.png</file>
+      <file alias="dice4">dice-4.png</file>
+      <file alias="dice5">dice-5.png</file>
+      <file alias="dice6">dice-6.png</file>
+      <file alias="dice">dice-none.png</file>
   </qresource>
 </RCC>

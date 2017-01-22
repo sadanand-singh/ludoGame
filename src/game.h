@@ -8,6 +8,7 @@
 class QAction;
 class QLabel;
 class Board;
+class DiceWidget;
 
 class Game : public QMainWindow
 {
@@ -19,6 +20,7 @@ class Game : public QMainWindow
     QAction *resetAction;
     QLabel *statusLabel;
     Board *board;
+    DiceWidget *dice;
 
     protected:
     // void saveState();
