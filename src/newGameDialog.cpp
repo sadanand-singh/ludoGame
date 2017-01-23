@@ -17,15 +17,15 @@ NewGameDialog::NewGameDialog(QString title, QWidget* parent) : QDialog(parent),
     hLayoutButton(new QHBoxLayout),
     buttons(new QWidget)
 {
-    playerMap.insert(tr("red"), new PlayerOption(Qt::red));
-    playerMap.insert(tr("green"), new PlayerOption(Qt::green));
-    playerMap.insert(tr("yellow"), new PlayerOption(Qt::yellow));
-    playerMap.insert(tr("blue"), new PlayerOption(Qt::blue));
+    playerMap.append(new PlayerOption(Qt::red));
+    playerMap.append(new PlayerOption(Qt::green));
+    playerMap.append(new PlayerOption(Qt::yellow));
+    playerMap.append(new PlayerOption(Qt::blue));
 
-    vLayout->addWidget(playerMap.value(tr("red")));
-    vLayout->addWidget(playerMap.value(tr("green")));
-    vLayout->addWidget(playerMap.value(tr("yellow")));
-    vLayout->addWidget(playerMap.value(tr("blue")));
+    vLayout->addWidget(playerMap.at(0));
+    vLayout->addWidget(playerMap.at(1));
+    vLayout->addWidget(playerMap.at(2));
+    vLayout->addWidget(playerMap.at(3));
 
     okButton->setEnabled(true);
     okButton->setDefault(true);
@@ -44,12 +44,12 @@ NewGameDialog::NewGameDialog(QString title, QWidget* parent) : QDialog(parent),
     connect(cancelButton, &QPushButton::clicked, this, &QDialog::close);
     connect(okButton, &QPushButton::clicked, this, &NewGameDialog::savePlayerData);
 
-    for(auto const& key : playerMap.keys())
+    for(auto const& player : playerMap)
     {
-        auto field = playerMap.value(key)->getPlayerName();
+        auto field = player->getPlayerName();
         connect(field, &QLineEdit::textChanged, this, &NewGameDialog::enableOKButton);
 
-        auto computerOption = playerMap.value(key)->getComputerOption();
+        auto computerOption = player->getComputerOption();
         connect(computerOption, &QRadioButton::toggled, this, &NewGameDialog::enableOKButton);
     }
 }
@@ -61,9 +61,8 @@ void NewGameDialog::enableOKButton()
     auto ok = true;
     auto anyHuman = false;
 
-    for(auto const& key : playerMap.keys())
+    for(auto const& player : playerMap)
     {
-        auto player = playerMap.value(key);
         auto isHuman = player->getHumanOption()->isChecked();
         auto name = player->getPlayerName()->text();
         auto playerOK = !name.isEmpty() and isHuman;
@@ -90,15 +89,14 @@ void NewGameDialog::enableOKButton()
 
 void NewGameDialog::savePlayerData()
 {
-    QMap<QString, QPair<bool, QString>> playerData;
+    QList<QPair<bool, QString>> playerData;
 
-    for(auto const& key : playerMap.keys())
+    for(auto const& player : playerMap)
     {
-        auto player = playerMap.value(key);
         auto isHuman = player->getHumanOption()->isChecked();
         auto name = QString("");
         if (isHuman) name = player->getPlayerName()->text();
-        playerData.insert(key, qMakePair(isHuman, name));
+        playerData.append(qMakePair(isHuman, name));
     }
 
     this->accept();

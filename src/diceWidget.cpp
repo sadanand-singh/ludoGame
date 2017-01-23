@@ -16,7 +16,7 @@ DiceWidget::DiceWidget(QGraphicsItem *parent) : QGraphicsPixmapItem(parent),
     images.append(QPixmap(":/images/dice4"));
     images.append(QPixmap(":/images/dice5"));
     images.append(QPixmap(":/images/dice6"));
-    this->setPixmap(images[0]);
+    setPixmap(images[0]);
 }
 
 void DiceWidget::mousePressEvent(QGraphicsSceneMouseEvent *e)
@@ -31,15 +31,14 @@ void DiceWidget::throwDice()
 {
     std::mt19937 e1(r());
     dice = uniform_dist(e1);
-    this->setPixmap(images[dice]);
-    this->update();
+    setPixmap(images[dice]);
     enabled = false;
     emit diceRolled(dice);
 }
 
 void DiceWidget::resetDice()
 {
-    this->setPixmap(images[0]);
+    setPixmap(images[0]);
     enabled = true;
 }
 
@@ -47,19 +46,19 @@ void DiceWidget::roll()
 {
     if (not enabled) return;
 
-    this->setPixmap(images[0]);
+    setPixmap(images[0]);
 
     auto graphicsRotation = new QGraphicsRotation();
     graphicsRotation->setAxis(Qt::YAxis);
     graphicsRotation->setAngle(0);
     graphicsRotation->setOrigin(QVector3D(QPointF(35, 35)));
     QList<QGraphicsTransform*> t {graphicsRotation};
-    this->setTransformations(t);
+    setTransformations(t);
 
     auto animation = new QPropertyAnimation(graphicsRotation, "angle");
-    animation->setDuration(1000);
+    animation->setDuration(500);
     animation->setStartValue(graphicsRotation->angle());
-    animation->setEndValue(720);
+    animation->setEndValue(360);
     animation->start();
 
     connect(animation, &QAbstractAnimation::finished, this, &DiceWidget::throwDice);

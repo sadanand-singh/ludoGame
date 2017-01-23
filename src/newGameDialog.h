@@ -2,7 +2,7 @@
 #define NEWGAMEDIALOG_HEADER
 
 #include <QDialog>
-#include <QMap>
+#include <QList>
 #include <QPair>
 
 class PlayerOption;
@@ -17,7 +17,7 @@ class NewGameDialog : public QDialog
     Q_OBJECT
 
     private:
-    QMap<QString, PlayerOption*> playerMap;
+    QList<PlayerOption*> playerMap;
     QVBoxLayout *vLayout;
     QPushButton *okButton;
     QPushButton *cancelButton;
@@ -30,7 +30,7 @@ class NewGameDialog : public QDialog
     void savePlayerData();
 
     signals:
-    void startNewGame(const QMap<QString, QPair<bool, QString>> data);
+    void startNewGame(const QList<QPair<bool, QString>> data);
 
     public:
     NewGameDialog(QString title, QWidget* parent = nullptr);

@@ -2,13 +2,12 @@
 #define GAME_HEADER
 
 #include <QMainWindow>
-#include <QMap>
-#include <QPair>
 
 class QAction;
 class QLabel;
 class Board;
 class DiceWidget;
+class Player;
 
 class Game : public QMainWindow
 {
@@ -21,6 +20,10 @@ class Game : public QMainWindow
     QLabel *statusLabel;
     Board *board;
     DiceWidget *dice;
+    QList<QColor> playerColors;
+    QList<QString> playerColorNames;
+    unsigned currentPlayerId;
+    QList<Player*> players;
 
     protected:
     // void saveState();
@@ -33,7 +36,7 @@ class Game : public QMainWindow
     void newGame();
     void resetGame();
     void updateStatusMessage(int diceValue);
-    void start(const QMap<QString, QPair<bool, QString>> data);
+    void start(const QList<QPair<bool, QString>> data);
 
     public:
     Game(QMainWindow* parent = nullptr);

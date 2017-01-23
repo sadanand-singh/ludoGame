@@ -1,12 +1,20 @@
 #include "game.h"
 #include "board.h"
+#include "player.h"
+#include "homeField.h"
 #include "newGameDialog.h"
 #include "diceWidget.h"
+#include "figure.h"
 #include <QtWidgets>
+
+#include <QDebug>
 
 Game::Game(QMainWindow* parent) : QMainWindow(parent),
     board(nullptr),
-    dice(nullptr)
+    dice(nullptr),
+    playerColors({Qt::red, Qt::green, Qt::yellow, Qt::blue}),
+    playerColorNames({tr("RED"), tr("GREEN"), tr("YELLOW"), tr("BLUE")}),
+    currentPlayerId(0)
 {
     QIcon icon(":/images/game");
     this->setWindowIcon(icon);
@@ -77,18 +85,42 @@ void Game::newGame()
     delete dialog;
 }
 
-void Game::start(const QMap<QString, QPair<bool, QString>> playerData)
+void Game::start(const QList<QPair<bool, QString>> playerData)
 {
     newGameAction->setEnabled(false);
     resetAction->setEnabled(true);
     statusLabel->setText(tr("Game Started..."));
 
-    for(auto const& key : playerData.keys())
+    auto index = 0u;
+    qreal figureDiameter = 24.0;
+    qreal figureRadius = 0.5 * figureDiameter;
+
+    for(auto const& data : playerData)
     {
-        auto data = playerData.value(key);
         auto isHuman = data.first;
         auto name = data.second;
-        // set various parts of the game
+        auto color = playerColors.at(index);
+        if (not isHuman) name = tr("Computer");
+
+        auto player = new Player(name, color);
+        players.append(player);
+
+        // get home field of corresponding color
+        auto colorField = board->getHome(index);
+        // qDebug() << colorField->getColor().name() << "\n";
+        auto homeField = colorField->getHomeField();
+        auto figures = player->getFigures();
+        for( auto& circle : homeField)
+        {
+            auto center = circle->boundingRect().center();
+            auto topLeft = center - QPointF(figureRadius, figureRadius);
+            auto figure = new Figure(figureDiameter);
+            figure->setPlayer(player);
+            figure->setPos(topLeft);
+            board->getScene()->addItem(figure);
+            figures.append(figure);
+        }
+        ++index;
     }
 
     // draw dice at the center of the board
@@ -102,7 +134,7 @@ void Game::start(const QMap<QString, QPair<bool, QString>> playerData)
 
 void Game::updateStatusMessage(int d)
 {
-    auto msg = QStringLiteral("Player %1 You got %2!").arg("RED").arg(d);
+    auto msg = QStringLiteral("%1 (%2) You got %3!").arg(players.at(currentPlayerId)->getName()).arg(playerColorNames.at(currentPlayerId)).arg(d);
     statusLabel->setText(msg);
 }
 
