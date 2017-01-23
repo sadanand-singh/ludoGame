@@ -149,18 +149,18 @@ Board::Board(QWidget *parent) : QWidget(parent),
     setupNextField();
     setupNextSafeZone();
 
-    auto redField = std::unique_ptr<HomeField>(new HomeField(0, 0, 0, Qt::red, scene));
+    auto redField = new HomeField(0, 0, 0, Qt::red, scene, this);
     redField->setNextField(field.at(1));
-    home.append(redField.get());
-    auto greenField = std::unique_ptr<HomeField>(new HomeField(360, 0, 90, Qt::green, scene));
+    home.append(redField);
+    auto greenField = new HomeField(360, 0, 90, Qt::green, scene, this);
     greenField->setNextField(field.at(14));
-    home.append(greenField.get());
-    auto yellowField = std::unique_ptr<HomeField>(new HomeField(360, 360, 180, Qt::yellow, scene));
+    home.append(greenField);
+    auto yellowField = new HomeField(360, 360, 180, Qt::yellow, scene, this);
     yellowField->setNextField(field.at(27));
-    home.append(yellowField.get());
-    auto blueField = std::unique_ptr<HomeField>(new HomeField(0, 360, 270, Qt::blue, scene));
+    home.append(yellowField);
+    auto blueField = new HomeField(0, 360, 270, Qt::blue, scene, this);
     blueField->setNextField(field.at(40));
-    home.append(blueField.get());
+    home.append(blueField);
 
     auto *vLayout =  new QVBoxLayout();
     this->setLayout(vLayout);
@@ -225,4 +225,9 @@ void Board::drawSpecial(unsigned index, QColor color)
 QGraphicsScene* Board::getScene()
 {
     return this->scene;
+}
+
+HomeField* Board::getHome(unsigned color)
+{
+    return home.at(color);
 }

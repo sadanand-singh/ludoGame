@@ -2,6 +2,7 @@
 #define HOMEFIELD_HEADER
 
 #include <QtCore>
+#include <QObject>
 class QGraphicsEllipseItem;
 class QGraphicsRectItem;
 class QGraphicsPolygonItem;
@@ -9,7 +10,7 @@ class QGraphicsScene;
 class QColor;
 class Field;
 
-class HomeField
+class HomeField : public QObject
 {
     private:
     qreal startX;
@@ -21,7 +22,7 @@ class HomeField
     Field* nextField;
 
     public:
-    HomeField(qreal x, qreal y, qreal r, QColor color, QGraphicsScene *scene);
+    HomeField(qreal x, qreal y, qreal r, QColor color, QGraphicsScene *scene, QObject *parent);
     QList<QGraphicsEllipseItem*> getHomeField();
     QColor getColor();
     QGraphicsPolygonItem* getEndZone();

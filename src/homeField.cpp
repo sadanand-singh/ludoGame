@@ -6,7 +6,8 @@
 #include <QGraphicsPolygonItem>
 #include <QPolygonF>
 
-HomeField::HomeField(qreal x, qreal y, qreal r, QColor c, QGraphicsScene *scene) :
+HomeField::HomeField(qreal x, qreal y, qreal r, QColor c, QGraphicsScene *scene, QObject *parent) :
+    QObject(parent),
     startX(x),
     startY(y),
     color(c),
