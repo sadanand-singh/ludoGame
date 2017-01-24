@@ -1,5 +1,7 @@
 #include "board.h"
 #include "field.h"
+#include "lastField.h"
+#include "safeField.h"
 #include "homeField.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
@@ -29,101 +31,101 @@ Board::Board(QWidget *parent) : QWidget(parent),
     for (qreal x = 0; x < 240; x += 40)
     {
         Field* box = new Field(x, 240, 40, 40);
-        scene->addItem(dynamic_cast<QGraphicsRectItem*>(box));
+        scene->addItem(box);
         field.append(box);
     }
     for (qreal y = 200; y >= 0; y -= 40)
     {
         Field* box = new Field(240, y, 40, 40);
-        scene->addItem(dynamic_cast<QGraphicsRectItem*>(box));
+        scene->addItem(box);
         field.append(box);
     }
 
-    Field* box1 = new Field(280, 0, 40, 40);
-    scene->addItem(dynamic_cast<QGraphicsRectItem*>(box1));
+    Field* box1 = new LastField(280, 0, 40, 40);
+    box1->setColor(Qt::green);
+    scene->addItem(box1);
     field.append(box1);
 
     for (qreal y = 0; y < 240; y += 40)
     {
         Field* box = new Field(320, y, 40, 40);
-        scene->addItem(dynamic_cast<QGraphicsRectItem*>(box));
+        scene->addItem(box);
         field.append(box);
     }
     for (qreal x = 360; x < 600; x += 40)
     {
         Field* box = new Field(x, 240, 40, 40);
-        scene->addItem(dynamic_cast<QGraphicsRectItem*>(box));
+        scene->addItem(box);
         field.append(box);
     }
 
-    Field* box2 = new Field(560, 280, 40, 40);
-    scene->addItem(dynamic_cast<QGraphicsRectItem*>(box2));
+    Field* box2 = new LastField(560, 280, 40, 40);
+    box2->setColor(Qt::yellow);
+    scene->addItem(box2);
     field.append(box2);
 
     for (qreal x = 560; x >= 360; x -= 40)
     {
         Field* box = new Field(x, 320, 40, 40);
-        scene->addItem(dynamic_cast<QGraphicsRectItem*>(box));
+        scene->addItem(box);
         field.append(box);
     }
     for (qreal y = 360; y < 600; y += 40)
     {
         Field* box = new Field(320, y, 40, 40);
-        scene->addItem(dynamic_cast<QGraphicsRectItem*>(box));
+        scene->addItem(box);
         field.append(box);
     }
 
-    Field* box3 = new Field(280, 560, 40, 40);
-    scene->addItem(dynamic_cast<QGraphicsRectItem*>(box3));
+    Field* box3 = new LastField(280, 560, 40, 40);
+    box3->setColor(Qt::blue);
+    scene->addItem(box3);
     field.append(box3);
 
     for (qreal y = 560; y >= 360; y -= 40)
     {
         Field* box = new Field(240, y, 40, 40);
-        scene->addItem(dynamic_cast<QGraphicsRectItem*>(box));
+        scene->addItem(box);
         field.append(box);
     }
     for (qreal x = 200; x >= 0; x -= 40)
     {
         Field* box = new Field(x, 320, 40, 40);
-        scene->addItem(dynamic_cast<QGraphicsRectItem*>(box));
+        scene->addItem(box);
         field.append(box);
     }
 
-    Field* box4 = new Field(0, 280, 40, 40);
-    scene->addItem(dynamic_cast<QGraphicsRectItem*>(box4));
+    Field* box4 = new LastField(0, 280, 40, 40);
+    box4->setColor(Qt::red);
+    scene->addItem(box4);
     field.append(box4);
 
     for (qreal x = 40; x < 240; x += 40)
     {
-        Field* box = new Field(x, 280, 40, 40);
-        box->makeSafe(Qt::red);
-        scene->addItem(dynamic_cast<QGraphicsRectItem*>(box));
-        box->setBrush(QBrush(Qt::red));
+        Field* box = new SafeField(x, 280, 40, 40);
+        scene->addItem(box);
+        box->setColor(Qt::red);
         field.append(box);
     }
     for (qreal y = 40; y < 240; y += 40)
     {
-        Field* box = new Field(280, y, 40, 40);
-        box->makeSafe(Qt::green);
-        scene->addItem(dynamic_cast<QGraphicsRectItem*>(box));
-        box->setBrush(QBrush(Qt::green));
+        Field* box = new SafeField(280, y, 40, 40);
+        scene->addItem(box);
+        box->setColor(Qt::green);
         field.append(box);
     }
     for (qreal x = 520; x >= 360; x -= 40)
     {
-        Field* box = new Field(x, 280, 40, 40);
-        box->makeSafe(Qt::yellow);
-        scene->addItem(dynamic_cast<QGraphicsRectItem*>(box));
-        box->setBrush(QBrush(Qt::yellow));
+        Field* box = new SafeField(x, 280, 40, 40);
+        scene->addItem(box);
+        box->setColor(Qt::yellow);
         field.append(box);
     }
     for (qreal y = 360; y < 560; y += 40)
     {
-        Field* box = new Field(280, y, 40, 40);
-        box->makeSafe(Qt::yellow);
-        scene->addItem(dynamic_cast<QGraphicsRectItem*>(box));
-        box->setBrush(QBrush(Qt::blue));
+        Field* box = new SafeField(280, y, 40, 40);
+        scene->addItem(box);
+        box->setColor(Qt::blue);
         field.append(box);
     }
 

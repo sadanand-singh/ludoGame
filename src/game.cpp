@@ -102,7 +102,7 @@ void Game::start(const QList<QPair<bool, QString>> playerData)
         auto color = playerColors.at(index);
         if (not isHuman) name = tr("Computer");
 
-        auto player = new Player(name, color);
+        auto player = new Player(name, color, this);
         players.append(player);
 
         // get home field of corresponding color

@@ -4,24 +4,27 @@
 #include <QGraphicsRectItem>
 #include <QObject>
 
+class Figure;
+
 class Field : public QObject, public QGraphicsRectItem
 {
     Q_OBJECT
 
     protected:
     Field *nextField;
-    Field *safeField;
-    bool isSafe;
-    QColor safeColor;
     bool isSpecial;
+    QList<Figure*> figures;
 
     public:
     Field(qreal x, qreal y, qreal w, qreal h, QGraphicsItem* parent = nullptr);
 
-    void setSafeField(Field *field);
     void setNextField(Field *field);
-    void makeSafe(QColor color);
     void makeSpecial();
+    void addFigure(Figure *fig);
+    void removeFigure(Figure *fig);
+    virtual Field* next(QColor color);
+    virtual void setColor(QColor color);
+    virtual void setSafeField(Field *field);
 };
 
 #endif
