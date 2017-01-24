@@ -44,4 +44,3 @@ void Field::setSafeField(Field *field)
 {
     Q_UNUSED (field);
 }
-
