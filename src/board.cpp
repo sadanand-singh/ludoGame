@@ -6,9 +6,7 @@
 #include "endField.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
-#include <QGraphicsItem>
 #include <QVBoxLayout>
-#include <memory>
 
 Board::Board(QWidget *parent) : QWidget(parent),
     scene(nullptr),
