@@ -11,7 +11,7 @@ class DiceWidget : public QObject, public QGraphicsPixmapItem
 
     protected:
     bool enabled;
-    int dice;
+    unsigned dice;
     QList<QPixmap> images;
     std::random_device r;
     std::uniform_int_distribution<int> uniform_dist;
@@ -21,9 +21,10 @@ class DiceWidget : public QObject, public QGraphicsPixmapItem
     void mousePressEvent(QGraphicsSceneMouseEvent *e) Q_DECL_OVERRIDE;
     void setEnabled(bool enabled);
     void resetDice();
+    unsigned value();
 
     signals:
-    void diceRolled(const int dice);
+    void diceRolled(const unsigned dice);
 
     private slots:
     void roll();

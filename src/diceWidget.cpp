@@ -6,7 +6,7 @@
 
 DiceWidget::DiceWidget(QGraphicsItem *parent) : QGraphicsPixmapItem(parent),
     enabled(true),
-    dice(0),
+    dice(0u),
     uniform_dist(std::uniform_int_distribution<int>(1, 6))
 {
     images.append(QPixmap(":/images/dice"));
@@ -16,7 +16,7 @@ DiceWidget::DiceWidget(QGraphicsItem *parent) : QGraphicsPixmapItem(parent),
     images.append(QPixmap(":/images/dice4"));
     images.append(QPixmap(":/images/dice5"));
     images.append(QPixmap(":/images/dice6"));
-    setPixmap(images[0]);
+    setPixmap(images.at(0));
 }
 
 void DiceWidget::mousePressEvent(QGraphicsSceneMouseEvent *e)
@@ -31,7 +31,7 @@ void DiceWidget::throwDice()
 {
     std::mt19937 e1(r());
     dice = uniform_dist(e1);
-    setPixmap(images[dice]);
+    setPixmap(images.at(dice));
     enabled = false;
     emit diceRolled(dice);
 }
@@ -46,7 +46,7 @@ void DiceWidget::roll()
 {
     if (not enabled) return;
 
-    setPixmap(images[0]);
+    setPixmap(images.at(0));
 
     auto graphicsRotation = new QGraphicsRotation();
     graphicsRotation->setAxis(Qt::YAxis);
@@ -67,4 +67,9 @@ void DiceWidget::roll()
 void DiceWidget::setEnabled(bool enabled)
 {
     this->enabled = enabled;
+}
+
+unsigned DiceWidget::value()
+{
+    return dice;
 }
