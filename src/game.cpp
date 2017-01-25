@@ -112,7 +112,7 @@ void Game::start(const QList<QPair<bool, QString>> playerData)
         player->setHomeField(colorField);
         players.append(player);
 
-        QList<Figure*> figures;
+        auto& figures = player->getFigures();
         for( auto& circle : homeField)
         {
             auto center = circle->boundingRect().center();
@@ -201,7 +201,7 @@ void Game::move(Figure *figure)
 void Game::activatePlayerFigures(unsigned diceValue)
 {
     auto player = players.at(currentPlayerId);
-    auto figures = player->getFigures();
+    auto& figures = player->getFigures();
 
     for (auto& figure : figures)
     {
