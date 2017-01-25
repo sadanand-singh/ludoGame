@@ -45,6 +45,11 @@ void Figure::setEnabled(bool enabled)
     this->enabled = enabled;
 }
 
+bool Figure::isEnabled()
+{
+    return enabled;
+}
+
 void Figure::setPlayer(Player *player)
 {
     this->player = player;

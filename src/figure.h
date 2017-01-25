@@ -27,6 +27,7 @@ class Figure : public QObject, public QGraphicsEllipseItem
 
     Player* getPlayer();
     Field* getPosition();
+    bool isEnabled();
 
     signals:
     void clicked(Figure*);
