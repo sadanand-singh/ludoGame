@@ -3,6 +3,7 @@
 #include "lastField.h"
 #include "safeField.h"
 #include "homeField.h"
+#include "endField.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QGraphicsItem>
@@ -164,6 +165,25 @@ Board::Board(QWidget *parent) : QWidget(parent),
     blueField->setNextField(field.at(40));
     home.append(blueField);
 
+    // add end Fields
+    auto endRed = new EndField(240, 285, 30, 30);
+    endRed->setVisible(false);
+    scene->addItem(endRed);
+    auto endGreen = new EndField(285, 240, 30, 30);
+    endGreen->setVisible(false);
+    scene->addItem(endGreen);
+    auto endYellow = new EndField(330, 285, 30, 30);
+    endYellow->setVisible(false);
+    scene->addItem(endYellow);
+    auto endBlue = new EndField(285, 330, 30, 30);
+    endBlue->setVisible(false);
+    scene->addItem(endBlue);
+
+    endField.append(endRed);
+    endField.append(endGreen);
+    endField.append(endYellow);
+    endField.append(endBlue);
+
     auto *vLayout =  new QVBoxLayout();
     this->setLayout(vLayout);
     vLayout->addWidget(view);
@@ -178,11 +198,13 @@ void Board::setupNextField()
         auto id = field.indexOf(box);
 
         // if `id` is not in ends
-        if(ends.indexOf(id) == -1)
+        auto endID = ends.indexOf(id);
+        if(endID == -1)
         {
             id = (id == 51) ? 0 : id + 1;
             box->setNextField(field.at(id));
         }
+        else  box->setNextField(endField.at(endID));
     }
 }
 

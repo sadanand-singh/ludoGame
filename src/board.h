@@ -21,6 +21,7 @@ class Board : public QWidget
     QList<Field*> field;
     QList<HomeField*> home;
     QGraphicsRectItem *diceBox;
+    QList<Field*> endField;
 
     void drawSpecial(unsigned index, QColor color = Qt::darkGray);
     void setupNextField();

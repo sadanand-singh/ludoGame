@@ -28,7 +28,6 @@ class HomeField : public QObject
     QGraphicsPolygonItem* getEndZone();
     void setNextField(Field *field);
     Field* getStartField();
-
 };
 
 #endif
