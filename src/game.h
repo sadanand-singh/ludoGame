@@ -21,10 +21,10 @@ class Game : public QMainWindow
     QLabel *statusLabel;
     Board *board;
     DiceWidget *dice;
-    qreal figureDiameter;
-    qreal figureRadius;
     QList<QColor> playerColors;
     QList<QString> playerColorNames;
+    qreal figureDiameter;
+    qreal figureRadius;
     unsigned currentPlayerId;
     QList<Player*> players;
 
