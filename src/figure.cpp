@@ -35,9 +35,7 @@ return false;
 void Figure::mousePressEvent(QGraphicsSceneMouseEvent *e)
 {
     if (not enabled) return;
-
     emit clicked(this);
-    QGraphicsEllipseItem::mousePressEvent(e);
 }
 
 void Figure::setEnabled(bool enabled)
