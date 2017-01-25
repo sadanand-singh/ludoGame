@@ -122,7 +122,7 @@ Board::Board(QWidget *parent) : QWidget(parent),
         box->setColor(Qt::yellow);
         field.append(box);
     }
-    for (qreal y = 360; y < 560; y += 40)
+    for (qreal y = 520; y >= 360; y -= 40)
     {
         Field* box = new SafeField(280, y, 40, 40);
         scene->addItem(box);
