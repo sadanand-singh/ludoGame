@@ -30,7 +30,7 @@ class Player : public QObject
     void setFigures(QList<Figure*> figs);
     void setHomeField(HomeField* home);
 
-    QList<Figure*> getFigures();
+    QList<Figure*>& getFigures();
     HomeField* getHomeField();
     unsigned getFiguresRemaining();
     QColor getColor();

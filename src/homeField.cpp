@@ -72,3 +72,8 @@ void HomeField::setNextField(Field *field)
 {
     this->nextField = field;
 }
+
+Field* HomeField::getStartField()
+{
+    return nextField;
+}

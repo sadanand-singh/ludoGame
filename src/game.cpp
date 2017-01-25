@@ -5,6 +5,9 @@
 #include "newGameDialog.h"
 #include "diceWidget.h"
 #include "figure.h"
+#include "field.h"
+#include "lastField.h"
+#include "safeField.h"
 #include <QtWidgets>
 
 #include <QDebug>
@@ -14,6 +17,8 @@ Game::Game(QMainWindow* parent) : QMainWindow(parent),
     dice(nullptr),
     playerColors({Qt::red, Qt::green, Qt::yellow, Qt::blue}),
     playerColorNames({tr("RED"), tr("GREEN"), tr("YELLOW"), tr("BLUE")}),
+    figureDiameter(24.0),
+    figureRadius(12.0),
     currentPlayerId(0)
 {
     QIcon icon(":/images/game");
@@ -92,24 +97,22 @@ void Game::start(const QList<QPair<bool, QString>> playerData)
     statusLabel->setText(tr("Game Started..."));
 
     auto index = 0u;
-    qreal figureDiameter = 24.0;
-    qreal figureRadius = 0.5 * figureDiameter;
 
     for(auto const& data : playerData)
     {
+        auto colorField = board->getHome(index);
+        auto homeField = colorField->getHomeField();
+
         auto isHuman = data.first;
         auto name = data.second;
         auto color = playerColors.at(index);
         if (not isHuman) name = tr("Computer");
 
         auto player = new Player(name, color, this);
+        player->setHomeField(colorField);
         players.append(player);
 
-        // get home field of corresponding color
-        auto colorField = board->getHome(index);
-        // qDebug() << colorField->getColor().name() << "\n";
-        auto homeField = colorField->getHomeField();
-        auto figures = player->getFigures();
+        QList<Figure*> figures;
         for( auto& circle : homeField)
         {
             auto center = circle->boundingRect().center();
@@ -119,6 +122,8 @@ void Game::start(const QList<QPair<bool, QString>> playerData)
             figure->setPos(topLeft);
             board->getScene()->addItem(figure);
             figures.append(figure);
+
+            connect(figure, &Figure::clicked, this, &Game::move);
         }
         ++index;
     }
@@ -130,11 +135,88 @@ void Game::start(const QList<QPair<bool, QString>> playerData)
     dice->setPos(dicePos);
     board->getScene()->addItem(dice);
     connect(dice, &DiceWidget::diceRolled, this, &Game::updateStatusMessage);
+
+    // Make current player active
+    connect(dice, &DiceWidget::diceRolled, this, &Game::activatePlayerFigures);
 }
 
-void Game::updateStatusMessage(int d)
+void Game::move(Figure *figure)
 {
-    auto msg = QStringLiteral("%1 (%2) You got %3!").arg(players.at(currentPlayerId)->getName()).arg(playerColorNames.at(currentPlayerId)).arg(d);
+    if (not figure->isEnabled()) return;
+
+    auto diceValue = dice->value();
+    auto position = figure->getPosition();
+    auto newPosition = position;
+    auto player = figure->getPlayer();
+    auto color = player->getColor();
+
+    if (position)
+    {
+        while (diceValue-- > 0)
+        {
+            newPosition = newPosition->next(color);
+            if (not newPosition) break;
+        }
+
+        if (not diceValue)
+        {
+            if (newPosition)
+            {
+                board->getScene()->removeItem(figure);
+
+                auto center = newPosition->boundingRect().center();
+                auto topLeft = center - QPointF(figureRadius, figureRadius);
+                figure->setPos(topLeft);
+                board->getScene()->addItem(figure);
+
+                // set all other figures to disabled
+                auto figures = player->getFigures();
+                for (auto& fig : figures) fig->setEnabled(false);
+
+            }
+
+        }
+    }
+    else
+    {
+        if (diceValue)
+        {
+            board->getScene()->removeItem(figure);
+
+            auto startField = player->getHomeField()->getStartField();
+            auto center = startField->boundingRect().center();
+            auto topLeft = center - QPointF(figureRadius, figureRadius);
+            figure->setPos(topLeft);
+            board->getScene()->addItem(figure);
+
+            // set all other figures to disabled
+            auto figures = player->getFigures();
+            for (auto& fig : figures) fig->setEnabled(false);
+        }
+    }
+
+
+}
+
+void Game::activatePlayerFigures(unsigned diceValue)
+{
+    auto player = players.at(currentPlayerId);
+    auto figures = player->getFigures();
+
+    for (auto& figure : figures)
+    {
+        auto position = figure->getPosition();
+        if (position) figure->setEnabled(true);
+        else
+        {
+            if (diceValue) figure->setEnabled(true);
+        }
+    }
+}
+
+void Game::updateStatusMessage(unsigned diceValue)
+{
+    auto msg = QStringLiteral("%1 (%2) You got %3!").arg(players.at(currentPlayerId)->getName()).arg(playerColorNames.at(currentPlayerId)).arg(diceValue);
     statusLabel->setText(msg);
 }
 

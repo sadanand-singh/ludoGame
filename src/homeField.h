@@ -27,6 +27,7 @@ class HomeField : public QObject
     QColor getColor();
     QGraphicsPolygonItem* getEndZone();
     void setNextField(Field *field);
+    Field* getStartField();
 
 };
 

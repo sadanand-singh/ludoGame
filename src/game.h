@@ -8,6 +8,7 @@ class QLabel;
 class Board;
 class DiceWidget;
 class Player;
+class Figure;
 
 class Game : public QMainWindow
 {
@@ -20,6 +21,8 @@ class Game : public QMainWindow
     QLabel *statusLabel;
     Board *board;
     DiceWidget *dice;
+    qreal figureDiameter;
+    qreal figureRadius;
     QList<QColor> playerColors;
     QList<QString> playerColorNames;
     unsigned currentPlayerId;
@@ -35,7 +38,9 @@ class Game : public QMainWindow
     void howToPlay();
     void newGame();
     void resetGame();
-    void updateStatusMessage(int diceValue);
+    void updateStatusMessage(unsigned diceValue);
+    void activatePlayerFigures(unsigned diceValue);
+    void move(Figure *figure);
     void start(const QList<QPair<bool, QString>> data);
 
     public:

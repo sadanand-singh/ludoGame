@@ -41,7 +41,7 @@ void Player::setHomeField(HomeField* home)
     homeField = home;
 }
 
-QList<Figure*> Player::getFigures()
+QList<Figure*>& Player::getFigures()
 {
     return figures;
 }
