@@ -8,6 +8,7 @@ Figure::Figure(qreal r, QGraphicsItem* parent) :
     QGraphicsEllipseItem(0.0, 0.0, r, r, parent),
     player(nullptr),
     currPos(nullptr),
+    diameter(r),
     enabled(false)
 {
     setPen(QPen(Qt::black, 2.0));
@@ -51,13 +52,23 @@ bool Figure::isEnabled()
 void Figure::setPlayer(Player *player)
 {
     this->player = player;
-    auto color = player->getColor();
+    color = player->getColor();
     this->setBrush(QBrush(color));
+}
+
+QColor Figure::getColor()
+{
+    return color;
 }
 
 void Figure::setPosition(Field *pos)
 {
+    // Remove this figure from currPos
+    if (this->currPos) this->currPos->removeFigure(this);
+
+    // set new Position
     this->currPos = pos;
+    this->currPos->addFigure(this);
 }
 
 Player* Figure::getPlayer()
@@ -68,4 +79,14 @@ Player* Figure::getPlayer()
 Field* Figure::getPosition()
 {
     return currPos;
+}
+
+qreal Figure::getDiameter()
+{
+    return diameter;
+}
+
+void Figure::setDiameter(qreal diameter)
+{
+    this->diameter = diameter;
 }

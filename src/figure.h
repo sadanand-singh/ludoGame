@@ -14,7 +14,9 @@ class Figure : public QObject, public QGraphicsEllipseItem
     protected:
     Player *player;
     Field *currPos;
+    qreal diameter;
     bool enabled;
+    QColor color;
 
     public:
     Figure(qreal r, QGraphicsItem* parent = nullptr);
@@ -23,11 +25,14 @@ class Figure : public QObject, public QGraphicsEllipseItem
 
     void setPlayer(Player *player);
     void setPosition(Field *pos);
+    void setDiameter(qreal diameter);
     bool eventFilter(QObject *obj, QEvent *event);
+    QColor getColor();
 
     Player* getPlayer();
     Field* getPosition();
     bool isEnabled();
+    qreal getDiameter();
 
     signals:
     void clicked(Figure*);
