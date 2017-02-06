@@ -12,8 +12,7 @@ HomeField::HomeField(qreal x, qreal y, qreal r, QColor c, QGraphicsScene *scene,
     startY(y),
     color(c),
     rect(nullptr),
-    triangle(nullptr),
-    nextField(nullptr)
+    triangle(nullptr)
 {
     rect = scene->addRect(QRectF(x, y, 240, 240));
     rect->setPen(QPen(Qt::black, 2.0));
@@ -58,22 +57,7 @@ QList<QGraphicsEllipseItem*> HomeField::getHomeField()
     return this->circles;
 }
 
-QColor HomeField::getColor()
-{
-    return this->color;
-}
-
 QGraphicsPolygonItem* HomeField::getEndZone()
 {
     return this->triangle;
-}
-
-void HomeField::setNextField(Field *field)
-{
-    this->nextField = field;
-}
-
-Field* HomeField::getStartField()
-{
-    return nextField;
 }

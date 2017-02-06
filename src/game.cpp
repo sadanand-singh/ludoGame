@@ -8,6 +8,7 @@
 #include "field.h"
 #include "lastField.h"
 #include "safeField.h"
+#include "startField.h"
 #include <QtWidgets>
 
 #include <QDebug>
@@ -17,8 +18,6 @@ Game::Game(QMainWindow* parent) : QMainWindow(parent),
     dice(nullptr),
     playerColors({Qt::red, Qt::green, Qt::yellow, Qt::blue}),
     playerColorNames({tr("RED"), tr("GREEN"), tr("YELLOW"), tr("BLUE")}),
-    figureDiameter(24.0),
-    figureRadius(12.0),
     currentPlayerId(0)
 {
     QIcon icon(":/images/game");
@@ -100,33 +99,29 @@ void Game::start(const QList<QPair<bool, QString>> playerData)
 
     for(auto const& data : playerData)
     {
-        auto colorField = board->getHome(index);
-        auto homeField = colorField->getHomeField();
-
         auto isHuman = data.first;
         auto name = data.second;
         auto color = playerColors.at(index);
         if (not isHuman) name = tr("Computer");
 
         auto player = new Player(name, color, this);
-        player->setHomeField(colorField);
         players.append(player);
 
         auto& figures = player->getFigures();
-        for( auto& circle : homeField)
+        auto startFields = board->getStartField(index);
+        for( auto& startField : startFields)
         {
-            auto center = circle->boundingRect().center();
-            auto topLeft = center - QPointF(figureRadius, figureRadius);
-            auto figure = new Figure(figureDiameter);
-            figure->setPlayer(player);
-            figure->setPos(topLeft);
+            auto figure = new Figure(24.0);
             board->getScene()->addItem(figure);
+            figure->setPlayer(player);
+            figure->setPosition(startField);
             figures.append(figure);
 
             connect(figure, &Figure::clicked, this, &Game::move);
         }
         ++index;
     }
+
 
     // draw dice at the center of the board
     dice = new DiceWidget();
@@ -150,7 +145,16 @@ void Game::move(Figure *figure)
     auto player = figure->getPlayer();
     auto color = player->getColor();
 
-    if (position)
+    if (dynamic_cast <StartField*> (position))
+    {
+        figure->setPosition(position->next(color));
+
+        // set all other figures to disabled
+        // auto figures = player->getFigures();
+        // for (auto& fig : figures) fig->setEnabled(false);
+    }
+
+    else
     {
         while (diceValue-- > 0)
         {
@@ -162,12 +166,7 @@ void Game::move(Figure *figure)
         {
             if (newPosition)
             {
-                board->getScene()->removeItem(figure);
-
-                auto center = newPosition->boundingRect().center();
-                auto topLeft = center - QPointF(figureRadius, figureRadius);
-                figure->setPos(topLeft);
-                board->getScene()->addItem(figure);
+                figure->setPosition(newPosition);
 
                 // set all other figures to disabled
                 auto figures = player->getFigures();
@@ -177,25 +176,6 @@ void Game::move(Figure *figure)
 
         }
     }
-    else
-    {
-        if (diceValue)
-        {
-            board->getScene()->removeItem(figure);
-
-            auto startField = player->getHomeField()->getStartField();
-            auto center = startField->boundingRect().center();
-            auto topLeft = center - QPointF(figureRadius, figureRadius);
-            figure->setPos(topLeft);
-            board->getScene()->addItem(figure);
-
-            // set all other figures to disabled
-            auto figures = player->getFigures();
-            for (auto& fig : figures) fig->setEnabled(false);
-        }
-    }
-
-
 }
 
 void Game::activatePlayerFigures(unsigned diceValue)

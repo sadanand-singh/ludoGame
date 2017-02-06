@@ -23,8 +23,6 @@ class Game : public QMainWindow
     DiceWidget *dice;
     QList<QColor> playerColors;
     QList<QString> playerColorNames;
-    qreal figureDiameter;
-    qreal figureRadius;
     unsigned currentPlayerId;
     QList<Player*> players;
 
