@@ -122,7 +122,7 @@ void Figure::enableIfPossible(unsigned dice)
         return;
     if (dynamic_cast<StartField*> (currPos))
     {
-        if(dice != 0)
+        if(dice == 6)
         {
             this->setEnabled(true);
             resultPos = currPos->next(color);
