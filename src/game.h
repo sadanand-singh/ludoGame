@@ -23,7 +23,7 @@ class Game : public QMainWindow
     DiceWidget *dice;
     QList<QColor> playerColors;
     QList<QString> playerColorNames;
-    unsigned currentPlayerId;
+    Player* currPlayer;
     QList<Player*> players;
 
     protected:
@@ -38,8 +38,8 @@ class Game : public QMainWindow
     void resetGame();
     void updateStatusMessage(unsigned diceValue);
     void activatePlayerFigures(unsigned diceValue);
-    void move(Figure *figure);
     void start(const QList<QPair<bool, QString>> data);
+    void setCurrentPlayer(Player *player);
 
     public:
     Game(QMainWindow* parent = nullptr);

@@ -18,7 +18,7 @@ Game::Game(QMainWindow* parent) : QMainWindow(parent),
     dice(nullptr),
     playerColors({Qt::red, Qt::green, Qt::yellow, Qt::blue}),
     playerColorNames({tr("RED"), tr("GREEN"), tr("YELLOW"), tr("BLUE")}),
-    currentPlayerId(0)
+    currPlayer(nullptr)
 {
     QIcon icon(":/images/game");
     this->setWindowIcon(icon);
