@@ -32,7 +32,7 @@ class Board : public QWidget
     explicit Board(QWidget *parent = nullptr);
     QGraphicsScene* getScene();
     QGraphicsRectItem* getDiceBox();
-    QList<Field*> getStartField(unsigned colorIndex);
+    QList<Field*>& getStartField(unsigned colorIndex);
 };
 
 #endif

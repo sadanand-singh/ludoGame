@@ -265,7 +265,7 @@ QGraphicsScene* Board::getScene()
     return this->scene;
 }
 
-QList<Field*> Board::getStartField(unsigned colorIndex)
+QList<Field*>& Board::getStartField(unsigned colorIndex)
 {
-    return startField.at(colorIndex);
+    return startField[colorIndex];
 }
