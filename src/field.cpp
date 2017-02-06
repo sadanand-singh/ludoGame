@@ -24,6 +24,11 @@ Field* Field::next(QColor color)
     return nextField;
 }
 
+QList<Figure*>& Field::getFigures()
+{
+    return figures;
+}
+
 void Field::addFigure(Figure *fig)
 {
     figures.append(fig);

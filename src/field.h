@@ -20,6 +20,7 @@ class Field : public QObject, public QGraphicsRectItem
     public:
     Field(qreal x, qreal y, qreal w, qreal h, QGraphicsItem* parent = nullptr);
     void setNextField(Field *field);
+    QList<Figure*>& getFigures();
     bool isSpecial();
     virtual void addFigure(Figure *fig);
     virtual void removeFigure(Figure *fig);
