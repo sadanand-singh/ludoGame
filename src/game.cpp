@@ -106,9 +106,11 @@ void Game::start(const QList<QPair<bool, QString>> playerData)
 
         auto player = new Player(name, color, this);
         players.append(player);
+        connect(player, &Player::updateCurrent, this, &Game::setCurrentPlayer);
 
         auto& figures = player->getFigures();
-        auto startFields = board->getStartField(index);
+        auto& startFields = board->getStartField(index);
+        player->setStartField(startFields);
         for( auto& startField : startFields)
         {
             auto figure = new Figure(24.0);
@@ -117,7 +119,7 @@ void Game::start(const QList<QPair<bool, QString>> playerData)
             figure->setPosition(startField);
             figures.append(figure);
 
-            connect(figure, &Figure::clicked, this, &Game::move);
+            connect(figure, &Figure::clicked, player, &Player::move);
         }
         ++index;
     }
@@ -128,43 +130,23 @@ void Game::start(const QList<QPair<bool, QString>> playerData)
     dicePos -= QPointF(10, 10);
     dice->setPos(dicePos);
     board->getScene()->addItem(dice);
-    connect(dice, &DiceWidget::diceRolled, this, &Game::updateStatusMessage);
+    currPlayer = players.at(0);
 
-    // Make current player active
+    connect(dice, &DiceWidget::diceRolled, this, &Game::updateStatusMessage);
     connect(dice, &DiceWidget::diceRolled, this, &Game::activatePlayerFigures);
+
+    for (auto& player : players)
+        connect(dice, &DiceWidget::diceRolled, player, &Player::setDice);
 }
 
-void Game::move(Figure *figure)
+void Game::setCurrentPlayer(Player *player)
 {
-    if (not figure->isEnabled()) return;
-
-    auto hilight = figure->getHilight();
-    auto pos = figure->getResultPosition();
-    auto scene = pos->scene();
-    scene->removeItem(hilight);
-    delete hilight;
-    hilight = nullptr;
-
-    auto diceValue = dice->value();
-    auto position = figure->getPosition();
-    auto newPosition = figure->getResultPosition();;
-    auto player = figure->getPlayer();
-    auto color = player->getColor();
-
-    if (dynamic_cast <StartField*> (position))
-        figure->setPosition(position->next(color));
-    else
-        if (newPosition) figure->setPosition(newPosition);
-
-    // set all other figures to disabled
-    auto figures = player->getFigures();
-    for (auto& fig : figures) fig->setEnabled(false);
+    this->currPlayer = player;
 }
 
 void Game::activatePlayerFigures(unsigned diceValue)
 {
-    auto player = players.at(currentPlayerId);
-    auto& figures = player->getFigures();
+    auto& figures = currPlayer->getFigures();
 
     for (auto& figure : figures)
         figure->enableIfPossible(diceValue);
@@ -172,7 +154,9 @@ void Game::activatePlayerFigures(unsigned diceValue)
 
 void Game::updateStatusMessage(unsigned diceValue)
 {
-    auto msg = QStringLiteral("%1 (%2) You got %3!").arg(players.at(currentPlayerId)->getName()).arg(playerColorNames.at(currentPlayerId)).arg(diceValue);
+    auto index = playerColors.indexOf(currPlayer->getColor());
+    auto colorName = playerColorNames.at(index);
+    auto msg = QStringLiteral("%1 (%2) You got %3!").arg(currPlayer->getName()).arg(colorName).arg(diceValue);
     statusLabel->setText(msg);
 }
 
