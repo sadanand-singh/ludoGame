@@ -6,6 +6,7 @@
 
 class HomeField;
 class Figure;
+class Field;
 
 class Player : public QObject
 {
@@ -18,7 +19,10 @@ class Player : public QObject
     bool isActive;
     unsigned figuresRemaining;
     unsigned figuresInHouse;
+    unsigned dice;
+    unsigned bonusMoves;
     QString name;
+    QList<Field*> startField;
 
     public:
     Player(QString name, QColor color, QObject *parent = nullptr);
@@ -29,11 +33,20 @@ class Player : public QObject
 
     void setFigures(QList<Figure*> figs);
     void setHomeField(HomeField* home);
+    void setStartField(QList<Field*>& start);
 
     QList<Figure*>& getFigures();
+    QList<Field*>& getStartField();
     HomeField* getHomeField();
     unsigned getFiguresRemaining();
     QColor getColor();
     QString getName();
+
+    public slots:
+    void move(Figure *figure);
+    void setDice(unsigned dice);
+
+    signals:
+    void updateCurrent(Player *player);
 };
 #endif

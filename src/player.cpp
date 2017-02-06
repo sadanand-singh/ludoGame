@@ -1,5 +1,6 @@
 #include "player.h"
 #include "figure.h"
+#include "field.h"
 #include "homeField.h"
 #include <algorithm>
 
@@ -9,6 +10,7 @@ Player::Player(QString n, QColor c, QObject *parent) : QObject(parent),
     isActive(false),
     figuresRemaining(4),
     figuresInHouse(4),
+    bonusMoves(0),
     name(n)
 {}
 
@@ -46,6 +48,11 @@ QList<Figure*>& Player::getFigures()
     return figures;
 }
 
+QList<Field*>& Player::getStartField()
+{
+    return startField;
+}
+
 HomeField* Player::getHomeField()
 {
     return homeField;
@@ -64,4 +71,62 @@ QColor Player::getColor()
 QString Player::getName()
 {
     return name;
+}
+
+void Player::move(Figure *figure)
+{
+    if (not hasFigure(figure)) return;
+
+    // auto hilight = figure->getHilight();
+    // auto pos = figure->getResultPosition();
+    // auto scene = pos->scene();
+    // scene->removeItem(hilight);
+    // delete hilight;
+    // hilight = nullptr;
+
+    auto position = figure->getPosition();
+    auto newPosition = figure->getResultPosition();
+
+    // find figures at newPosition if not special
+    if (not newPosition->isSpecial())
+    {
+        auto& allFigures = newPosition->getFigures();
+        for(auto& fig : allFigures)
+        {
+            if (fig->getColor() != color)
+            {
+                fig->moveToHome();
+                ++bonusMoves;
+            }
+            else
+            {
+                newPosition = nullptr;
+                break;
+            }
+        }
+    }
+
+    if (newPosition) figure->setPosition(newPosition);
+
+    // set all other figures to disabled
+    for (auto& fig : figures) fig->setEnabled(false);
+
+    // if (hasWon())
+    // {
+    //     emit gameWon(this);
+    //     return;
+    // }
+
+    // emit continueGame(nextPlayer);
+    // return;
+}
+
+void Player::setStartField(QList<Field*>& start)
+{
+    startField = start;
+}
+
+void Player::setDice(unsigned dice)
+{
+    this->dice = dice;
 }
