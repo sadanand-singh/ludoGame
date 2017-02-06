@@ -122,7 +122,6 @@ void Game::start(const QList<QPair<bool, QString>> playerData)
         ++index;
     }
 
-
     // draw dice at the center of the board
     dice = new DiceWidget();
     auto dicePos = board->getDiceBox()->boundingRect().topLeft();
@@ -139,43 +138,27 @@ void Game::move(Figure *figure)
 {
     if (not figure->isEnabled()) return;
 
+    auto hilight = figure->getHilight();
+    auto pos = figure->getResultPosition();
+    auto scene = pos->scene();
+    scene->removeItem(hilight);
+    delete hilight;
+    hilight = nullptr;
+
     auto diceValue = dice->value();
     auto position = figure->getPosition();
-    auto newPosition = position;
+    auto newPosition = figure->getResultPosition();;
     auto player = figure->getPlayer();
     auto color = player->getColor();
 
     if (dynamic_cast <StartField*> (position))
-    {
         figure->setPosition(position->next(color));
-
-        // set all other figures to disabled
-        // auto figures = player->getFigures();
-        // for (auto& fig : figures) fig->setEnabled(false);
-    }
-
     else
-    {
-        while (diceValue-- > 0)
-        {
-            newPosition = newPosition->next(color);
-            if (not newPosition) break;
-        }
+        if (newPosition) figure->setPosition(newPosition);
 
-        if (not diceValue)
-        {
-            if (newPosition)
-            {
-                figure->setPosition(newPosition);
-
-                // set all other figures to disabled
-                auto figures = player->getFigures();
-                for (auto& fig : figures) fig->setEnabled(false);
-
-            }
-
-        }
-    }
+    // set all other figures to disabled
+    auto figures = player->getFigures();
+    for (auto& fig : figures) fig->setEnabled(false);
 }
 
 void Game::activatePlayerFigures(unsigned diceValue)
@@ -184,14 +167,7 @@ void Game::activatePlayerFigures(unsigned diceValue)
     auto& figures = player->getFigures();
 
     for (auto& figure : figures)
-    {
-        auto position = figure->getPosition();
-        if (position) figure->setEnabled(true);
-        else
-        {
-            if (diceValue) figure->setEnabled(true);
-        }
-    }
+        figure->enableIfPossible(diceValue);
 }
 
 void Game::updateStatusMessage(unsigned diceValue)
