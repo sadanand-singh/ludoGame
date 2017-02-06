@@ -30,6 +30,7 @@ class Figure : public QObject, public QGraphicsEllipseItem
     void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) Q_DECL_OVERRIDE;
     void setEnabled(bool enabled);
     void enableIfPossible(unsigned dice);
+    void moveToHome();
 
     void setPlayer(Player *player);
     void setPosition(Field *pos);

@@ -149,3 +149,12 @@ QGraphicsRectItem* Figure::getHilight()
 {
     return hilight;
 }
+
+void Figure::moveToHome()
+{
+    auto player = getPlayer();
+    auto& startField = player->getStartField();
+    auto index = player->getFigures().indexOf(this);
+    auto start = startField.at(index);
+    setPosition(start);
+}
