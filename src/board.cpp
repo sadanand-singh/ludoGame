@@ -1,7 +1,9 @@
 #include "board.h"
 #include "field.h"
+#include "startField.h"
 #include "lastField.h"
 #include "safeField.h"
+#include "specialField.h"
 #include "homeField.h"
 #include "endField.h"
 #include <QGraphicsScene>
@@ -13,6 +15,12 @@ Board::Board(QWidget *parent) : QWidget(parent),
     view(nullptr),
     diceBox(nullptr)
 {
+    QList<Field*> fBlank{};
+    startField.append(fBlank);
+    startField.append(fBlank);
+    startField.append(fBlank);
+    startField.append(fBlank);
+
     view = new QGraphicsView();
     scene = new QGraphicsScene(this);
     view->setScene(scene);
@@ -131,55 +139,46 @@ Board::Board(QWidget *parent) : QWidget(parent),
     diceBox = scene->addRect(270, 270, 60, 60);
     diceBox->setVisible(false);
 
-    //special start boxes
-    field.at(1)->setBrush(QBrush(Qt::red));
-    field.at(14)->setBrush(QBrush(Qt::green));
-    field.at(27)->setBrush(QBrush(Qt::yellow));
-    field.at(40)->setBrush(QBrush(Qt::blue));
-
     drawSpecial(1);
     drawSpecial(14);
     drawSpecial(27);
     drawSpecial(40);
 
-    drawSpecial(9, Qt::black);
-    drawSpecial(22, Qt::black);
-    drawSpecial(35, Qt::black);
-    drawSpecial(48, Qt::black);
+    drawSpecial(9);
+    drawSpecial(22);
+    drawSpecial(35);
+    drawSpecial(48);
 
     setupNextField();
     setupNextSafeZone();
 
-    auto redField = new HomeField(0, 0, 0, Qt::red, scene, this);
-    redField->setNextField(field.at(1));
-    home.append(redField);
-    auto greenField = new HomeField(360, 0, 90, Qt::green, scene, this);
-    greenField->setNextField(field.at(14));
-    home.append(greenField);
-    auto yellowField = new HomeField(360, 360, 180, Qt::yellow, scene, this);
-    yellowField->setNextField(field.at(27));
-    home.append(yellowField);
-    auto blueField = new HomeField(0, 360, 270, Qt::blue, scene, this);
-    blueField->setNextField(field.at(40));
-    home.append(blueField);
+    auto redHome = new HomeField(0, 0, 0, Qt::red, scene, this);
+    addStartFields(redHome, 0, 1);
+
+    auto greenHome = new HomeField(360, 0, 90, Qt::green, scene, this);
+    addStartFields(greenHome, 1, 14);
+
+    auto yellowHome = new HomeField(360, 360, 180, Qt::yellow, scene, this);
+    addStartFields(yellowHome, 2, 27);
+
+    auto blueHome = new HomeField(0, 360, 270, Qt::blue, scene, this);
+    addStartFields(blueHome, 3, 40);
 
     // add end Fields
     auto endRed = new EndField(240, 285, 30, 30);
-    endRed->setVisible(false);
     scene->addItem(endRed);
-    auto endGreen = new EndField(285, 240, 30, 30);
-    endGreen->setVisible(false);
-    scene->addItem(endGreen);
-    auto endYellow = new EndField(330, 285, 30, 30);
-    endYellow->setVisible(false);
-    scene->addItem(endYellow);
-    auto endBlue = new EndField(285, 330, 30, 30);
-    endBlue->setVisible(false);
-    scene->addItem(endBlue);
-
     endField.append(endRed);
+
+    auto endGreen = new EndField(285, 240, 30, 30);
+    scene->addItem(endGreen);
     endField.append(endGreen);
+
+    auto endYellow = new EndField(330, 285, 30, 30);
+    scene->addItem(endYellow);
     endField.append(endYellow);
+
+    auto endBlue = new EndField(285, 330, 30, 30);
+    scene->addItem(endBlue);
     endField.append(endBlue);
 
     auto *vLayout =  new QVBoxLayout();
@@ -206,6 +205,19 @@ void Board::setupNextField()
     }
 }
 
+void Board::addStartFields(HomeField *home, unsigned colorIndex, unsigned next)
+{
+    auto circles = home->getHomeField();
+    auto& starts = startField[colorIndex];
+    for (auto& circle : circles)
+    {
+        auto box = new StartField(circle->boundingRect());
+        box->setNextField(field.at(next));
+        starts.append(box);
+        scene->addItem(box);
+    }
+}
+
 void Board::setupNextSafeZone()
 {
     QVector<QPair<unsigned, unsigned>> endSafePairs;
@@ -226,22 +238,26 @@ QGraphicsRectItem* Board::getDiceBox()
     return this->diceBox;
 }
 
-void Board::drawSpecial(unsigned index, QColor color)
+void Board::drawSpecial(unsigned index, QColor pen)
 {
     auto brect = field.at(index)->boundingRect();
-    field.at(index)->makeSpecial();
+    delete field[index];
+
+    auto box = new SpecialField(brect);
+    scene->addItem(box);
+    field[index] = box;
 
     auto c = brect.center();
     auto line = scene->addLine(c.x()-8, c.y()-3, c.x()+8, c.y()-3);
-    line->setPen(QPen(color, 2.0));
+    line->setPen(QPen(pen, 3.0));
     line = scene->addLine(c.x()+8, c.y()-3, c.x()-5, c.y()+8);
-    line->setPen(QPen(color, 2.0));
+    line->setPen(QPen(pen, 3.0));
     line = scene->addLine(c.x()-5, c.y()+8, c.x(), c.y()-8);
-    line->setPen(QPen(color, 2.0));
+    line->setPen(QPen(pen, 3.0));
     line = scene->addLine(c.x(), c.y()-8, c.x()+5, c.y()+8);
-    line->setPen(QPen(color, 2.0));
+    line->setPen(QPen(pen, 3.0));
     line = scene->addLine(c.x()+5, c.y()+8, c.x()-8, c.y()-3);
-    line->setPen(QPen(color, 2.0));
+    line->setPen(QPen(pen, 3.0));
 }
 
 QGraphicsScene* Board::getScene()
@@ -249,7 +265,7 @@ QGraphicsScene* Board::getScene()
     return this->scene;
 }
 
-HomeField* Board::getHome(unsigned color)
+QList<Field*> Board::getStartField(unsigned colorIndex)
 {
-    return home.at(color);
+    return startField.at(colorIndex);
 }

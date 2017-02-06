@@ -8,8 +8,8 @@ class QGraphicsScene;
 class QGraphicsView;
 class QGraphicsRectItem;
 class QGraphicsItemGroup;
-class Field;
 class HomeField;
+class Field;
 
 class Board : public QWidget
 {
@@ -19,19 +19,20 @@ class Board : public QWidget
     QGraphicsScene *scene;
     QGraphicsView *view;
     QList<Field*> field;
-    QList<HomeField*> home;
     QGraphicsRectItem *diceBox;
     QList<Field*> endField;
+    QList<QList<Field*>> startField;
 
-    void drawSpecial(unsigned index, QColor color = Qt::darkGray);
+    void drawSpecial(unsigned index, QColor pen = Qt::black);
     void setupNextField();
     void setupNextSafeZone();
+    void addStartFields(HomeField *home, unsigned colorIndex, unsigned next);
 
     public:
     explicit Board(QWidget *parent = nullptr);
     QGraphicsScene* getScene();
     QGraphicsRectItem* getDiceBox();
-    HomeField* getHome(unsigned color);
+    QList<Field*> getStartField(unsigned colorIndex);
 };
 
 #endif
