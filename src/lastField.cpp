@@ -1,5 +1,4 @@
 #include "lastField.h"
-#include "figure.h"
 
 LastField::LastField(qreal x, qreal y, qreal w, qreal h, QGraphicsItem* parent) :
     Field(x, y, w, h, parent),
