@@ -14,7 +14,6 @@ class SafeField : public Field
     SafeField(qreal x, qreal y, qreal w, qreal h, QGraphicsItem* parent = nullptr);
 
     virtual void setColor(QColor color) Q_DECL_OVERRIDE;
-    // virtual void drawFigures() Q_DECL_OVERRIDE;
 };
 
 #endif

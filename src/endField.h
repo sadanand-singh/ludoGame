@@ -9,6 +9,7 @@ class EndField : public Field
 
     public:
     EndField(qreal x, qreal y, qreal w, qreal h, QGraphicsItem* parent = nullptr);
+    virtual void drawFigures() Q_DECL_OVERRIDE;
 };
 
 #endif
