@@ -106,7 +106,7 @@ void Game::start(const QList<QPair<bool, QString>> playerData)
 
         auto player = new Player(name, color, this);
         players.append(player);
-        connect(player, &Player::updateCurrent, this, &Game::setCurrentPlayer);
+        connect(player, &Player::continueGame, this, &Game::setCurrentPlayer);
 
         auto& figures = player->getFigures();
         auto& startFields = board->getStartField(index);
@@ -130,7 +130,10 @@ void Game::start(const QList<QPair<bool, QString>> playerData)
     dicePos -= QPointF(10, 10);
     dice->setPos(dicePos);
     board->getScene()->addItem(dice);
-    currPlayer = players.at(0);
+
+    //Activate Red to start
+    currPlayer = players[0];
+    currPlayer->setEnabled(true);
 
     connect(dice, &DiceWidget::diceRolled, this, &Game::updateStatusMessage);
     connect(dice, &DiceWidget::diceRolled, this, &Game::activatePlayerFigures);
@@ -139,17 +142,33 @@ void Game::start(const QList<QPair<bool, QString>> playerData)
         connect(dice, &DiceWidget::diceRolled, player, &Player::setDice);
 }
 
-void Game::setCurrentPlayer(Player *player)
+void Game::setCurrentPlayer(bool isActive)
 {
-    this->currPlayer = player;
+    if (not isActive)
+    {
+        auto indexPlayer = players.indexOf(currPlayer);
+        indexPlayer = (indexPlayer != 3) ? indexPlayer + 1 : 0;
+        currPlayer = players[indexPlayer];
+        qDebug() << "Next Player" << indexPlayer;
+    }
+    currPlayer->setEnabled(true);
+    dice->resetDice();
 }
 
 void Game::activatePlayerFigures(unsigned diceValue)
 {
     auto& figures = currPlayer->getFigures();
 
+    bool isAnyEnabled = false;
     for (auto& figure : figures)
-        figure->enableIfPossible(diceValue);
+    {
+        auto enable = figure->enableIfPossible(diceValue);
+        isAnyEnabled = isAnyEnabled or enable;
+    }
+
+    // if none enabled, set next player
+    if (not isAnyEnabled)
+        setCurrentPlayer(false);
 }
 
 void Game::updateStatusMessage(unsigned diceValue)

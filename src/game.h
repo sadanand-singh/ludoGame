@@ -39,7 +39,7 @@ class Game : public QMainWindow
     void updateStatusMessage(unsigned diceValue);
     void activatePlayerFigures(unsigned diceValue);
     void start(const QList<QPair<bool, QString>> data);
-    void setCurrentPlayer(Player *player);
+    void setCurrentPlayer(bool isActive);
 
     public:
     Game(QMainWindow* parent = nullptr);
