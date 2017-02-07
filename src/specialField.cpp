@@ -59,7 +59,8 @@ void SpecialField::drawFigures()
 
         auto center = this->boundingRect().center();
         getNewCenter(center, colors.indexOf(color));
-        auto figureRadius = 0.125 * fig->getDiameter();
+        fig->setDiameter(6.0);
+        auto figureRadius = 0.5 * fig->getDiameter();
         auto topLeft = center - QPointF(figureRadius, figureRadius);
 
         fig->setPos(topLeft);
@@ -74,7 +75,7 @@ void SpecialField::drawFigures()
             auto index = colorCounts.indexOf(count);
             auto center = this->boundingRect().center();
             getNewCenter(center, index);
-            auto figureRadius = 0.125 * figures.at(0)->getDiameter();
+            auto figureRadius = 0.5 * figures.at(0)->getDiameter();
             auto topLeft = center - QPointF(figureRadius, figureRadius);
             topLeft += QPointF(5, 0);
             text->setPos(topLeft);

@@ -70,6 +70,7 @@ void Field::drawFigures()
         ++figureCount;
         scene->removeItem(fig);
         auto center = this->boundingRect().center();
+        fig->setDiameter(24.0);
         auto figureRadius = 0.5 * fig->getDiameter();
         topLeft = center - QPointF(figureRadius, figureRadius);
         fig->setPos(topLeft);

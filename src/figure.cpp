@@ -151,16 +151,18 @@ bool Figure::enableIfPossible(unsigned dice)
 
 void Figure::findResultPosition(int dice)
 {
-    resultPos = currPos;
-    qDebug() << "dice = " << dice;
+    resultPos = nullptr;
 
-    while (dice > 0)
+    auto resultPosTemp = currPos;
+    while (dice-- > 0)
     {
-        --dice;
-        resultPos = resultPos->next(color);
-        if (not resultPos)
+        resultPosTemp = resultPosTemp->next(color);
+        if (not resultPosTemp)
             break;
     }
+
+    if(dice == -1 and resultPosTemp and resultPosTemp->getFigures().isEmpty())
+            resultPos = resultPosTemp;
 }
 
 QGraphicsRectItem* Figure::getHilight()

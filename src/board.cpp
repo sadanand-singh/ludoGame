@@ -188,20 +188,20 @@ Board::Board(QWidget *parent) : QWidget(parent),
 
 void Board::setupNextField()
 {
-    QVector<unsigned> ends {56, 61, 66, 71};
+    QVector<unsigned> ends {56u, 61u, 66u, 71u};
 
-    for(auto& box : field)
+    for (auto& box : field)
     {
         auto id = field.indexOf(box);
 
         // if `id` is not in ends
         auto endID = ends.indexOf(id);
-        if(endID == -1)
+        if (endID == -1)
         {
             id = (id == 51) ? 0 : id + 1;
-            box->setNextField(field.at(id));
+            box->setNextField(field[id]);
         }
-        else  box->setNextField(endField.at(endID));
+        else  box->setNextField(endField[endID]);
     }
 }
 

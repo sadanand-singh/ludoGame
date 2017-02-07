@@ -107,8 +107,7 @@ void Player::setStartField(QList<Field*>& start)
 void Player::setDice(unsigned dice)
 {
     this->dice = dice;
-    if (dice == 6)
-        ++bonusMoves;
+    if (dice == 6) ++bonusMoves;
 }
 
 void Player::setEnabled(bool enable)

@@ -146,12 +146,13 @@ void Game::setCurrentPlayer(bool isActive)
 {
     if (not isActive)
     {
+        currPlayer->setEnabled(false);
         auto indexPlayer = players.indexOf(currPlayer);
         indexPlayer = (indexPlayer != 3) ? indexPlayer + 1 : 0;
         currPlayer = players[indexPlayer];
-        qDebug() << "Next Player" << indexPlayer;
     }
     currPlayer->setEnabled(true);
+    qDebug() << "Next Player" << currPlayer->getName();
     dice->resetDice();
 }
 
