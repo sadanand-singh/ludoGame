@@ -46,11 +46,14 @@ void Figure::hilightField(Figure *fig)
 
 void Figure::unhilightField(Figure *fig)
 {
-    auto pos = fig->getResultPosition();
-    auto scene = pos->scene();
-    scene->removeItem(hilight);
-    delete hilight;
-    hilight = nullptr;
+    if (hilight)
+    {
+        auto pos = fig->getResultPosition();
+        auto scene = pos->scene();
+        scene->removeItem(hilight);
+        delete hilight;
+        hilight = nullptr;
+    }
 }
 
 void Figure::mousePressEvent(QGraphicsSceneMouseEvent *e)
@@ -83,6 +86,8 @@ QColor Figure::getColor()
 
 void Figure::setPosition(Field *pos)
 {
+    unhilightField(this);
+
     // Remove this figure from currPos
     if (this->currPos) this->currPos->removeFigure(this);
 
@@ -116,32 +121,43 @@ void Figure::setDiameter(qreal diameter)
     this->diameter = diameter;
 }
 
-void Figure::enableIfPossible(unsigned dice)
+bool Figure::enableIfPossible(unsigned dice)
 {
+    auto enabled = false;
     if (dynamic_cast<EndField*> (currPos))
-        return;
+        return enabled;
+
     if (dynamic_cast<StartField*> (currPos))
     {
         if(dice == 6)
         {
             this->setEnabled(true);
+            enabled = true;
             resultPos = currPos->next(color);
         }
-        return;
+        return enabled;
     }
 
     findResultPosition(dice);
     if (resultPos)
+    {
         this->setEnabled(true);
+        enabled = true;
+    }
+    return enabled;
 }
 
-void Figure::findResultPosition(unsigned dice)
+void Figure::findResultPosition(int dice)
 {
     resultPos = currPos;
-    while (dice-- > 0)
+    qDebug() << "dice = " << dice;
+
+    while (dice > 0)
     {
+        --dice;
         resultPos = resultPos->next(color);
-        if (not resultPos) break;
+        if (not resultPos)
+            break;
     }
 }
 

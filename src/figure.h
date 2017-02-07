@@ -21,7 +21,7 @@ class Figure : public QObject, public QGraphicsEllipseItem
     QColor color;
     QGraphicsRectItem *hilight;
 
-    void findResultPosition(unsigned dice);
+    void findResultPosition(int dice);
 
     public:
     Figure(qreal r, QGraphicsItem* parent = nullptr);
@@ -29,7 +29,7 @@ class Figure : public QObject, public QGraphicsEllipseItem
     void hoverEnterEvent(QGraphicsSceneHoverEvent* event) Q_DECL_OVERRIDE;
     void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) Q_DECL_OVERRIDE;
     void setEnabled(bool enabled);
-    void enableIfPossible(unsigned dice);
+    bool enableIfPossible(unsigned dice);
     void moveToHome();
 
     void setPlayer(Player *player);
