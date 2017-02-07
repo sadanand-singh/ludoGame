@@ -8,6 +8,8 @@
 #include <QGraphicsRectItem>
 #include <QGraphicsScene>
 
+#include <QDebug>
+
 Figure::Figure(qreal r, QGraphicsItem* parent) :
     QGraphicsEllipseItem(0.0, 0.0, r, r, parent),
     player(nullptr),
