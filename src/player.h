@@ -14,13 +14,10 @@ class Player : public QObject
 
     protected:
     QList<Figure*> figures;
-    HomeField *homeField;
     QColor color;
     bool isActive;
-    unsigned figuresRemaining;
-    unsigned figuresInHouse;
     unsigned dice;
-    unsigned bonusMoves;
+    int bonusMoves;
     QString name;
     QList<Field*> startField;
 
@@ -29,16 +26,13 @@ class Player : public QObject
 
     bool hasWon();
     bool hasFigure(Figure *figure);
-    bool allFiguresInStartHouse();
 
     void setFigures(QList<Figure*> figs);
-    void setHomeField(HomeField* home);
     void setStartField(QList<Field*>& start);
+    void setEnabled(bool enable);
 
     QList<Figure*>& getFigures();
     QList<Field*>& getStartField();
-    HomeField* getHomeField();
-    unsigned getFiguresRemaining();
     QColor getColor();
     QString getName();
 
@@ -47,6 +41,7 @@ class Player : public QObject
     void setDice(unsigned dice);
 
     signals:
-    void updateCurrent(Player *player);
+    void continueGame(bool isActive);
+    void gameWon(bool hasWon);
 };
 #endif
