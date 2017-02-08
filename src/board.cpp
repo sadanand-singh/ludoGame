@@ -149,9 +149,6 @@ Board::Board(QWidget *parent) : QWidget(parent),
     drawSpecial(35);
     drawSpecial(48);
 
-    setupNextField();
-    setupNextSafeZone();
-
     auto redHome = new HomeField(0, 0, 0, Qt::red, scene, this);
     addStartFields(redHome, 0, 1);
 
@@ -180,6 +177,9 @@ Board::Board(QWidget *parent) : QWidget(parent),
     auto endBlue = new EndField(285, 330, 30, 30);
     scene->addItem(endBlue);
     endField.append(endBlue);
+
+    setupNextField();
+    setupNextSafeZone();
 
     auto *vLayout =  new QVBoxLayout();
     this->setLayout(vLayout);
