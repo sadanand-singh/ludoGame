@@ -56,7 +56,17 @@ QString Player::getName()
 
 void Player::move(Figure *figure)
 {
-    if (not hasFigure(figure)) return;
+    if (not isActive)
+    {
+        emit continueGame(isActive);
+        return;
+    }
+
+    if (not hasFigure(figure))
+    {
+        emit continueGame(false);
+        return;
+    }
 
     auto newPosition = figure->getResultPosition();
 
@@ -79,8 +89,12 @@ void Player::move(Figure *figure)
         }
     }
 
-    if (newPosition) figure->setPosition(newPosition);
-    isActive = (bonusMoves > 0);
+    if (newPosition)
+    {
+        if (dynamic_cast<EndField*> (newPosition))
+            ++bonusMoves;
+        figure->setPosition(newPosition);
+    }
 
     // set all other figures to disabled
     for (auto& fig : figures) fig->setEnabled(false);
@@ -92,8 +106,9 @@ void Player::move(Figure *figure)
         return;
     }
 
-    --bonusMoves;
-    if (bonusMoves < 0) bonusMoves = 0;
+    if (dice == 6) ++bonusMoves;
+    isActive = (bonusMoves > 0);
+    if (isActive) --bonusMoves;
 
     emit continueGame(isActive);
     return;
@@ -107,7 +122,6 @@ void Player::setStartField(QList<Field*>& start)
 void Player::setDice(unsigned dice)
 {
     this->dice = dice;
-    if (dice == 6) ++bonusMoves;
 }
 
 void Player::setEnabled(bool enable)
