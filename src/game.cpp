@@ -133,6 +133,7 @@ void Game::start(const QList<QPair<bool, QString>> playerData)
 
     //Activate Red to start
     currPlayer = players[0];
+    showTurn();
     currPlayer->setEnabled(true);
 
     connect(dice, &DiceWidget::diceRolled, this, &Game::updateStatusMessage);
@@ -150,10 +151,18 @@ void Game::setCurrentPlayer(bool isActive)
         auto indexPlayer = players.indexOf(currPlayer);
         indexPlayer = (indexPlayer != 3) ? indexPlayer + 1 : 0;
         currPlayer = players[indexPlayer];
+        currPlayer->setEnabled(true);
     }
-    currPlayer->setEnabled(true);
-    qDebug() << "Next Player" << currPlayer->getName();
+    showTurn();
     dice->resetDice();
+}
+
+void Game::showTurn()
+{
+    auto index = playerColors.indexOf(currPlayer->getColor());
+    auto colorName = playerColorNames.at(index);
+    auto msg = QStringLiteral("Current Player: %1 (%2)").arg(currPlayer->getName()).arg(colorName);
+    statusBar()->showMessage(msg);
 }
 
 void Game::activatePlayerFigures(unsigned diceValue)

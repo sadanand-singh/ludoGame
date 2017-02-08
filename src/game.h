@@ -30,6 +30,7 @@ class Game : public QMainWindow
     // void saveState();
     void createActions();
     void createStatusBar();
+    void showTurn();
 
     private slots:
     void about();
