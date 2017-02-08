@@ -3,6 +3,7 @@
 #include "field.h"
 #include "endField.h"
 #include "startField.h"
+#include "specialField.h"
 #include <QPen>
 #include <QEvent>
 #include <QGraphicsRectItem>
@@ -39,11 +40,14 @@ void Figure::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 
 void Figure::hilightField(Figure *fig)
 {
-    auto color = fig->getColor();
     auto pos = fig->getResultPosition();
-    auto scene = pos->scene();
-    hilight = scene->addRect(pos->boundingRect());
-    hilight->setPen(QPen(color, 4.0));
+    if (pos)
+    {
+        auto scene = pos->scene();
+        hilight = scene->addRect(pos->boundingRect());
+        auto color = fig->getColor();
+        hilight->setPen(QPen(color, 4.0));
+    }
 }
 
 void Figure::unhilightField(Figure *fig)
@@ -143,8 +147,29 @@ bool Figure::enableIfPossible(unsigned dice)
     findResultPosition(dice);
     if (resultPos)
     {
-        this->setEnabled(true);
-        enabled = true;
+        if (not resultPos->isSpecial())
+        {
+            auto& figs = resultPos->getFigures();
+            if (figs.length())
+            {
+                auto existingColor = figs.at(0)->getColor();
+                if(color != existingColor)
+                {
+                    this->setEnabled(true);
+                    enabled = true;
+                }
+            }
+            else
+            {
+                this->setEnabled(true);
+                enabled = true;
+            }
+        }
+        else
+        {
+            this->setEnabled(true);
+            enabled = true;
+        }
     }
     return enabled;
 }
@@ -156,13 +181,14 @@ void Figure::findResultPosition(int dice)
     auto resultPosTemp = currPos;
     while (dice-- > 0)
     {
-        resultPosTemp = resultPosTemp->next(color);
-        if (not resultPosTemp)
+        if (resultPosTemp)
+            resultPosTemp = resultPosTemp->next(color);
+        else
             break;
     }
 
-    if(dice == -1 and resultPosTemp and resultPosTemp->getFigures().isEmpty())
-            resultPos = resultPosTemp;
+    if(dice == -1 and resultPosTemp)
+        resultPos = resultPosTemp;
 }
 
 QGraphicsRectItem* Figure::getHilight()
