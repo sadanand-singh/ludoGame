@@ -16,7 +16,9 @@ SpecialField::SpecialField(QRectF r, QGraphicsItem* parent) :
 void SpecialField::addFigure(Figure *fig)
 {
     auto color = fig->getColor();
-    if (++colorCounts[colors.indexOf(color)] == 1) ++figureColors;
+    if (colorCounts[colors.indexOf(color)] == 0) ++figureColors;
+
+    colorCounts[colors.indexOf(color)] += 1;
 
     Field::addFigure(fig);
 }
@@ -24,7 +26,8 @@ void SpecialField::addFigure(Figure *fig)
 void SpecialField::removeFigure(Figure *fig)
 {
     auto color = fig->getColor();
-    if (--colorCounts[colors.indexOf(color)] == 0) --figureColors;
+    if (colorCounts[colors.indexOf(color)] == 1) --figureColors;
+    colorCounts[colors.indexOf(color)] -= 1;
 
     Field::removeFigure(fig);
 }
@@ -32,6 +35,12 @@ void SpecialField::removeFigure(Figure *fig)
 void SpecialField::drawFigures()
 {
     auto scene = this->scene();
+    if(this->text)
+    {
+        scene->removeItem(this->text);
+        delete this->text;
+        this->text = nullptr;
+    }
 
     for (auto& textLocal : texts)
     {
@@ -59,7 +68,7 @@ void SpecialField::drawFigures()
 
         auto center = this->boundingRect().center();
         getNewCenter(center, colors.indexOf(color));
-        fig->setDiameter(6.0);
+        fig->setDiameter(16.0);
         auto figureRadius = 0.5 * fig->getDiameter();
         auto topLeft = center - QPointF(figureRadius, figureRadius);
 
@@ -71,18 +80,17 @@ void SpecialField::drawFigures()
     {
         if (count > 1)
         {
-            text = new QGraphicsTextItem;
+            auto textLocal = new QGraphicsTextItem;
             auto index = colorCounts.indexOf(count);
             auto center = this->boundingRect().center();
             getNewCenter(center, index);
-            auto figureRadius = 0.5 * figures.at(0)->getDiameter();
-            auto topLeft = center - QPointF(figureRadius, figureRadius);
+            auto topLeft = center - QPointF(8.0, 8.0);
             topLeft += QPointF(5, 0);
-            text->setPos(topLeft);
-            text->setFont(QFont("Times", 10, QFont::Bold));
-            text->setPlainText(QString::number(count));
-            scene->addItem(text);
-            texts[index] = text;
+            textLocal->setPos(topLeft);
+            textLocal->setFont(QFont("Times", 10, QFont::Bold));
+            textLocal->setPlainText(QString::number(count));
+            scene->addItem(textLocal);
+            texts[index] = textLocal;
         }
     }
 }
@@ -100,6 +108,7 @@ void SpecialField::getNewCenter(QPointF& center, unsigned index)
                  break;
         case 3 : shift = QPointF(-10.0, 10.0);
                  break;
+        default: break;
     }
 
     center += shift;
