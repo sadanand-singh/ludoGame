@@ -16,7 +16,7 @@
 Game::Game(QMainWindow* parent) : QMainWindow(parent),
     board(nullptr),
     dice(nullptr),
-    playerColors({Qt::red, Qt::green, Qt::yellow, Qt::blue}),
+    playerColors({Qt::red, QColor(85, 107, 47), QColor(218, 165, 32), QColor(147, 112, 219)}),
     playerColorNames({tr("RED"), tr("GREEN"), tr("YELLOW"), tr("BLUE")}),
     currPlayer(nullptr)
 {
