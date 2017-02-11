@@ -63,8 +63,6 @@ void Field::drawFigures()
         text = nullptr;
     }
 
-    QPointF topLeft;
-
     for (auto& fig : figures)
     {
         ++figureCount;
@@ -72,13 +70,17 @@ void Field::drawFigures()
         auto center = this->boundingRect().center();
         fig->setDiameter(24.0);
         auto figureRadius = 0.5 * fig->getDiameter();
-        topLeft = center - QPointF(figureRadius, figureRadius);
+        auto topLeft = center - QPointF(figureRadius, figureRadius);
         fig->setPos(topLeft);
         scene->addItem(fig);
     }
     if (figureCount > 1)
     {
         text = new QGraphicsTextItem;
+        auto fig = figures.at(0);
+        auto figureRadius = 0.5 * fig->getDiameter();
+        auto center = this->boundingRect().center();
+        auto topLeft = center - QPointF(figureRadius, figureRadius);
         topLeft += QPointF(5, 0);
         text->setPos(topLeft);
         text->setFont(QFont("Times", 10, QFont::Bold));
