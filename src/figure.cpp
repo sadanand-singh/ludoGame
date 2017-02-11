@@ -125,6 +125,7 @@ qreal Figure::getDiameter()
 void Figure::setDiameter(qreal diameter)
 {
     this->diameter = diameter;
+    this->setRect(0, 0, diameter, diameter);
 }
 
 bool Figure::enableIfPossible(unsigned dice)
