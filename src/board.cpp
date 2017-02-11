@@ -248,16 +248,16 @@ void Board::drawSpecial(unsigned index, QColor pen)
     field[index] = box;
 
     auto c = brect.center();
-    auto line = scene->addLine(c.x()-8, c.y()-3, c.x()+8, c.y()-3);
-    line->setPen(QPen(pen, 3.0));
-    line = scene->addLine(c.x()+8, c.y()-3, c.x()-5, c.y()+8);
-    line->setPen(QPen(pen, 3.0));
-    line = scene->addLine(c.x()-5, c.y()+8, c.x(), c.y()-8);
-    line->setPen(QPen(pen, 3.0));
-    line = scene->addLine(c.x(), c.y()-8, c.x()+5, c.y()+8);
-    line->setPen(QPen(pen, 3.0));
-    line = scene->addLine(c.x()+5, c.y()+8, c.x()-8, c.y()-3);
-    line->setPen(QPen(pen, 3.0));
+    auto line = scene->addLine(c.x()-12, c.y()-4.5, c.x()+12, c.y()-4.5);
+    line->setPen(QPen(pen, 2.0));
+    line = scene->addLine(c.x()+12, c.y()-4.5, c.x()-7.5, c.y()+12);
+    line->setPen(QPen(pen, 2.0));
+    line = scene->addLine(c.x()-7.5, c.y()+12, c.x(), c.y()-12);
+    line->setPen(QPen(pen, 2.0));
+    line = scene->addLine(c.x(), c.y()-12, c.x()+7.5, c.y()+12);
+    line->setPen(QPen(pen, 2.0));
+    line = scene->addLine(c.x()+7.5, c.y()+12, c.x()-12, c.y()-4.5);
+    line->setPen(QPen(pen, 2.0));
 }
 
 QGraphicsScene* Board::getScene()
