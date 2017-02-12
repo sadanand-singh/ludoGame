@@ -99,10 +99,9 @@ void Player::move(Figure *figure)
     // set all other figures to disabled
     for (auto& fig : figures) fig->setEnabled(false);
 
-    auto win = hasWon();
-    if (win)
+    if (hasWon())
     {
-        emit gameWon(win);
+        emit gameWon();
         return;
     }
 

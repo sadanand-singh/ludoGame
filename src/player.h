@@ -42,6 +42,6 @@ class Player : public QObject
 
     signals:
     void continueGame(bool isActive);
-    void gameWon(bool hasWon);
+    void gameWon();
 };
 #endif

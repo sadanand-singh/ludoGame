@@ -41,6 +41,7 @@ class Game : public QMainWindow
     void activatePlayerFigures(unsigned diceValue);
     void start(const QList<QPair<bool, QString>> data);
     void setCurrentPlayer(bool isActive);
+    void finished();
 
     public:
     Game(QMainWindow* parent = nullptr);

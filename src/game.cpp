@@ -107,6 +107,7 @@ void Game::start(const QList<QPair<bool, QString>> playerData)
         auto player = new Player(name, color, this);
         players.append(player);
         connect(player, &Player::continueGame, this, &Game::setCurrentPlayer);
+        connect(player, &Player::gameWon, this, &Game::finished);
 
         auto& figures = player->getFigures();
         auto& startFields = board->getStartField(index);
@@ -155,6 +156,15 @@ void Game::setCurrentPlayer(bool isActive)
     }
     showTurn();
     dice->resetDice();
+}
+
+void Game::finished()
+{
+    auto index = playerColors.indexOf(currPlayer->getColor());
+    auto colorName = playerColorNames.at(index);
+    auto msg = QStringLiteral("Player: %1 (%2) WON!!").arg(currPlayer->getName()).arg(colorName);
+    statusBar()->showMessage(msg);
+    statusLabel->setText("");
 }
 
 void Game::showTurn()
