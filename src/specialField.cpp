@@ -77,12 +77,12 @@ void SpecialField::drawFigures()
         scene->addItem(fig);
     }
 
-    for (auto& count : colorCounts)
+    for (int index = 0; index < 4; ++index)
     {
+        auto count = colorCounts.at(index);
         if (count > 1)
         {
             auto textLocal = new QGraphicsTextItem;
-            auto index = colorCounts.indexOf(count);
             auto center = this->boundingRect().center();
             getNewCenter(center, index);
             auto topLeft = center - QPointF(8.0, 8.0);
