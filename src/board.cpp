@@ -247,21 +247,9 @@ void Board::drawSpecial(unsigned index, QColor pen)
     scene->addItem(box);
     field[index] = box;
 
-    auto c = brect.center();
-
-    auto ellipse = scene->addEllipse(c.x()-15, c.y()-15, 30, 30);
-    ellipse->setPen(QPen(pen, 2.0));
-    ellipse->setBrush(QBrush(Qt::lightGray));
-
-    auto line = scene->addLine(c.x()-12, c.y()-4.5, c.x()+12, c.y()-4.5);
+    auto line = scene->addLine(QLineF(brect.topLeft(), brect.bottomRight()));
     line->setPen(QPen(pen, 2.0));
-    line = scene->addLine(c.x()+12, c.y()-4.5, c.x()-7.5, c.y()+12);
-    line->setPen(QPen(pen, 2.0));
-    line = scene->addLine(c.x()-7.5, c.y()+12, c.x(), c.y()-12);
-    line->setPen(QPen(pen, 2.0));
-    line = scene->addLine(c.x(), c.y()-12, c.x()+7.5, c.y()+12);
-    line->setPen(QPen(pen, 2.0));
-    line = scene->addLine(c.x()+7.5, c.y()+12, c.x()-12, c.y()-4.5);
+    line = scene->addLine(QLineF(brect.bottomLeft(), brect.topRight()));
     line->setPen(QPen(pen, 2.0));
 }
 
