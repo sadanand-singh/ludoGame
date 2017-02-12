@@ -16,6 +16,7 @@ class HomeField : public QObject
     qreal startY;
     const QColor& color;
     QGraphicsRectItem *rect;
+    QGraphicsRectItem *hiliteRect;
     QGraphicsPolygonItem *triangle;
     QList<QGraphicsEllipseItem*> circles;
 
@@ -23,6 +24,7 @@ class HomeField : public QObject
     HomeField(qreal x, qreal y, qreal r, QColor color, QGraphicsScene *scene, QObject *parent);
     QList<QGraphicsEllipseItem*> getHomeField();
     QGraphicsPolygonItem* getEndZone();
+    QGraphicsRectItem* getHiliteRect();
 };
 
 #endif

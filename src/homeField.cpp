@@ -18,6 +18,10 @@ HomeField::HomeField(qreal x, qreal y, qreal r, QColor c, QGraphicsScene *scene,
     rect->setPen(QPen(Qt::black, 2.0));
     rect->setBrush(QBrush(color));
 
+    hiliteRect = scene->addRect(QRectF(x+10, y+10, 220, 220));
+    hiliteRect->setPen(QPen(Qt::white, 4.0));
+    hiliteRect->setVisible(false);
+
     QGraphicsEllipseItem *c1 = scene->addEllipse(startX + 40, startY + 40, 60, 60);
     c1->setPen(QPen(Qt::black, 2.0));
     c1->setBrush(QBrush(Qt::white));
@@ -60,4 +64,9 @@ QList<QGraphicsEllipseItem*> HomeField::getHomeField()
 QGraphicsPolygonItem* HomeField::getEndZone()
 {
     return this->triangle;
+}
+
+QGraphicsRectItem* HomeField::getHiliteRect()
+{
+    return this->hiliteRect;
 }

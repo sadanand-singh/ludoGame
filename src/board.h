@@ -21,6 +21,7 @@ class Board : public QWidget
     QList<Field*> field;
     QGraphicsRectItem *diceBox;
     QList<Field*> endField;
+    QList<HomeField*> home;
     QList<QList<Field*>> startField;
 
     void drawSpecial(unsigned index, QColor pen = Qt::black);
@@ -33,6 +34,7 @@ class Board : public QWidget
     QGraphicsScene* getScene();
     QGraphicsRectItem* getDiceBox();
     QList<Field*>& getStartField(unsigned colorIndex);
+    HomeField* getHome(unsigned colorIndex);
 };
 
 #endif

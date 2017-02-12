@@ -151,15 +151,19 @@ Board::Board(QWidget *parent) : QWidget(parent),
 
     auto redHome = new HomeField(0, 0, 0, QColor(205, 92, 92), scene, this);
     addStartFields(redHome, 0, 1);
+    home.append(redHome);
 
     auto greenHome = new HomeField(360, 0, 90, QColor(85, 107, 47), scene, this);
     addStartFields(greenHome, 1, 14);
+    home.append(greenHome);
 
     auto yellowHome = new HomeField(360, 360, 180, QColor(218, 165, 32), scene, this);
     addStartFields(yellowHome, 2, 27);
+    home.append(yellowHome);
 
     auto blueHome = new HomeField(0, 360, 270, QColor(0, 191, 255), scene, this);
     addStartFields(blueHome, 3, 40);
+    home.append(blueHome);
 
     // add end Fields
     auto endRed = new EndField(240, 285, 30, 30);
@@ -261,4 +265,12 @@ QGraphicsScene* Board::getScene()
 QList<Field*>& Board::getStartField(unsigned colorIndex)
 {
     return startField[colorIndex];
+}
+
+HomeField* Board::getHome(unsigned colorIndex)
+{
+    if (colorIndex < 4)
+        return home.at(colorIndex);
+
+    return nullptr;
 }

@@ -159,10 +159,20 @@ void Game::setCurrentPlayer(bool isActive)
 
 void Game::showTurn()
 {
+    for(unsigned i = 0u; i < 4; ++i)
+    {
+        auto rectBox = board->getHome(i);
+        rectBox->getHiliteRect()->setVisible(false);
+    }
+
     auto index = playerColors.indexOf(currPlayer->getColor());
     auto colorName = playerColorNames.at(index);
     auto msg = QStringLiteral("Current Player: %1 (%2)").arg(currPlayer->getName()).arg(colorName);
     statusBar()->showMessage(msg);
+
+    //Hilight the current player
+    auto rectBox = board->getHome(index);
+    rectBox->getHiliteRect()->setVisible(true);
 }
 
 void Game::activatePlayerFigures(unsigned diceValue)
