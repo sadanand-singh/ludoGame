@@ -85,7 +85,7 @@ Board::Board(QWidget *parent) : QWidget(parent),
     }
 
     Field* box3 = new LastField(280, 560, 40, 40);
-    box3->setColor(QColor(147, 112, 219));
+    box3->setColor(QColor(0, 191, 255));
     scene->addItem(box3);
     field.append(box3);
 
@@ -103,7 +103,7 @@ Board::Board(QWidget *parent) : QWidget(parent),
     }
 
     Field* box4 = new LastField(0, 280, 40, 40);
-    box4->setColor(Qt::red);
+    box4->setColor(QColor(205, 92, 92));
     scene->addItem(box4);
     field.append(box4);
 
@@ -111,7 +111,7 @@ Board::Board(QWidget *parent) : QWidget(parent),
     {
         Field* box = new SafeField(x, 280, 40, 40);
         scene->addItem(box);
-        box->setColor(Qt::red);
+        box->setColor(QColor(205, 92, 92));
         field.append(box);
     }
     for (qreal y = 40; y < 240; y += 40)
@@ -132,7 +132,7 @@ Board::Board(QWidget *parent) : QWidget(parent),
     {
         Field* box = new SafeField(280, y, 40, 40);
         scene->addItem(box);
-        box->setColor(QColor(147, 112, 219));
+        box->setColor(QColor(0, 191, 255));
         field.append(box);
     }
 
@@ -149,7 +149,7 @@ Board::Board(QWidget *parent) : QWidget(parent),
     drawSpecial(35);
     drawSpecial(48);
 
-    auto redHome = new HomeField(0, 0, 0, Qt::red, scene, this);
+    auto redHome = new HomeField(0, 0, 0, QColor(205, 92, 92), scene, this);
     addStartFields(redHome, 0, 1);
 
     auto greenHome = new HomeField(360, 0, 90, QColor(85, 107, 47), scene, this);
@@ -158,7 +158,7 @@ Board::Board(QWidget *parent) : QWidget(parent),
     auto yellowHome = new HomeField(360, 360, 180, QColor(218, 165, 32), scene, this);
     addStartFields(yellowHome, 2, 27);
 
-    auto blueHome = new HomeField(0, 360, 270, QColor(147, 112, 219), scene, this);
+    auto blueHome = new HomeField(0, 360, 270, QColor(0, 191, 255), scene, this);
     addStartFields(blueHome, 3, 40);
 
     // add end Fields

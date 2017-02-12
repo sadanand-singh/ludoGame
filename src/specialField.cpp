@@ -8,9 +8,10 @@ SpecialField::SpecialField(QRectF r, QGraphicsItem* parent) :
     colorCounts({0, 0, 0, 0}),
     figureColors(0),
     texts({nullptr, nullptr, nullptr, nullptr}),
-    colors({Qt::red, QColor(85, 107, 47), QColor(218, 165, 32), QColor(147, 112, 219)})
+    colors({QColor(205, 92, 92), QColor(85, 107, 47), QColor(218, 165, 32), QColor(0, 191, 255)})
 {
     special = true;
+    setBrush(QBrush(Qt::lightGray));
 }
 
 void SpecialField::addFigure(Figure *fig)

@@ -17,10 +17,10 @@ NewGameDialog::NewGameDialog(QString title, QWidget* parent) : QDialog(parent),
     hLayoutButton(new QHBoxLayout),
     buttons(new QWidget)
 {
-    playerMap.append(new PlayerOption(Qt::red));
+    playerMap.append(new PlayerOption(QColor(205, 92, 92)));
     playerMap.append(new PlayerOption(QColor(85, 107, 47)));
     playerMap.append(new PlayerOption(QColor(218, 165, 32)));
-    playerMap.append(new PlayerOption(QColor(147, 112, 219)));
+    playerMap.append(new PlayerOption(QColor(0, 191, 255)));
 
     vLayout->addWidget(playerMap.at(0));
     vLayout->addWidget(playerMap.at(1));
