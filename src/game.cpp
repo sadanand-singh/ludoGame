@@ -143,13 +143,7 @@ void Game::start(const QList<QPair<bool, QString>> playerData)
     currPlayer = players[0];
     showTurn();
     currPlayer->setEnabled(true);
-
-    // If current player is computer, roll dice explicitly
-    if (dynamic_cast<ComputerPlayer*> (currPlayer))
-    {
-        delay(1);
-        dice->roll();
-    }
+    dice->roll();
 
     connect(dice, &DiceWidget::diceRolled, this, &Game::updateStatusMessage);
     connect(dice, &DiceWidget::diceRolled, this, &Game::activatePlayerFigures);

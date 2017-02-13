@@ -43,5 +43,10 @@ void ComputerPlayer::play()
 
 double ComputerPlayer::moveCost(Figure* fig)
 {
+    // find if new field is safe, or end or special
+    // find if new field is regular field, has other colored figures (kill)
+    // if dice is 6, and piece is in home
+    // calculate surrounding behind of new field (6-)
+    // calculate surrounding ahead of new field (6+)
     return 0.0;
 }
