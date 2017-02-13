@@ -22,8 +22,6 @@ DiceWidget::DiceWidget(QGraphicsItem *parent) : QGraphicsPixmapItem(parent),
 void DiceWidget::mousePressEvent(QGraphicsSceneMouseEvent *e)
 {
     if (not enabled) return;
-
-    roll();
     QGraphicsPixmapItem::mousePressEvent(e);
 }
 
