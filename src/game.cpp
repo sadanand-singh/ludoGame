@@ -1,6 +1,7 @@
 #include "game.h"
 #include "board.h"
 #include "player.h"
+#include "computerPlayer.h"
 #include "homeField.h"
 #include "newGameDialog.h"
 #include "diceWidget.h"
@@ -10,6 +11,7 @@
 #include "safeField.h"
 #include "startField.h"
 #include <QtWidgets>
+#include <QTime>
 
 #include <QDebug>
 
@@ -104,7 +106,12 @@ void Game::start(const QList<QPair<bool, QString>> playerData)
         auto color = playerColors.at(index);
         if (not isHuman) name = tr("Computer");
 
-        auto player = new Player(name, color, this);
+        Player* player;
+        if (isHuman)
+            player = new Player(name, color, this);
+        else
+            player = new ComputerPlayer(name, color, this);
+
         players.append(player);
         connect(player, &Player::continueGame, this, &Game::setCurrentPlayer);
         connect(player, &Player::gameWon, this, &Game::finished);
@@ -137,6 +144,13 @@ void Game::start(const QList<QPair<bool, QString>> playerData)
     showTurn();
     currPlayer->setEnabled(true);
 
+    // If current player is computer, roll dice explicitly
+    if (dynamic_cast<ComputerPlayer*> (currPlayer))
+    {
+        delay(1);
+        dice->roll();
+    }
+
     connect(dice, &DiceWidget::diceRolled, this, &Game::updateStatusMessage);
     connect(dice, &DiceWidget::diceRolled, this, &Game::activatePlayerFigures);
 
@@ -156,6 +170,9 @@ void Game::setCurrentPlayer(bool isActive)
     }
     showTurn();
     dice->resetDice();
+
+    delay(1);
+    dice->roll();
 }
 
 void Game::finished()
@@ -234,4 +251,11 @@ void Game::howToPlay()
                "You end up being dead and go back to HOME.<br>"
                "First player to bring all pieces to central <br>"
                "box WINS the game."));
+}
+
+void Game::delay(unsigned sec)
+{
+    QTime dieTime= QTime::currentTime().addSecs(sec);
+    while (QTime::currentTime() < dieTime)
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 }

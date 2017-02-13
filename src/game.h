@@ -45,6 +45,7 @@ class Game : public QMainWindow
 
     public:
     Game(QMainWindow* parent = nullptr);
+    static void delay(unsigned sec);
 };
 
 #endif

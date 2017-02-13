@@ -38,7 +38,7 @@ class Player : public QObject
 
     public slots:
     void move(Figure *figure);
-    void setDice(unsigned dice);
+    virtual void setDice(unsigned dice);
 
     signals:
     void continueGame(bool isActive);

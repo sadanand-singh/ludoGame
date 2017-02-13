@@ -26,7 +26,7 @@ class DiceWidget : public QObject, public QGraphicsPixmapItem
     signals:
     void diceRolled(const unsigned dice);
 
-    private slots:
+    public slots:
     void roll();
     void throwDice();
 };
