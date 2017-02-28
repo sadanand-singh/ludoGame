@@ -8,8 +8,6 @@
 #include "game.h"
 #include <algorithm>
 
-#include <QDebug>
-
 ComputerPlayer::ComputerPlayer(QString n, QColor c, QObject *parent) :
     Player(n, c, parent)
 {}
