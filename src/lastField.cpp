@@ -22,3 +22,8 @@ Field* LastField::next(QColor color)
 
     return nextField;
 }
+
+QColor LastField::getColor()
+{
+    return color;
+}

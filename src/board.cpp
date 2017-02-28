@@ -183,6 +183,7 @@ Board::Board(QWidget *parent) : QWidget(parent),
     endField.append(endBlue);
 
     setupNextField();
+    setupPreviousField();
     setupNextSafeZone();
 
     auto *vLayout =  new QVBoxLayout();
@@ -207,6 +208,19 @@ void Board::setupNextField()
         }
         else  box->setNextField(endField[endID]);
     }
+}
+
+void Board::setupPreviousField()
+{
+    for (auto& box : field)
+    {
+        auto id = field.indexOf(box);
+        auto prev = id - 1;
+        if (prev < 0) prev = 51;
+
+        box->setPreviousField(field[prev]);
+    }
+
 }
 
 void Board::addStartFields(HomeField *home, unsigned colorIndex, unsigned next)

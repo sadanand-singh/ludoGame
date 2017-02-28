@@ -17,6 +17,8 @@ class LastField : public Field
     virtual void setSafeField(Field *field) Q_DECL_OVERRIDE;
     virtual void setColor(QColor color) Q_DECL_OVERRIDE;
     virtual Field* next(QColor color) Q_DECL_OVERRIDE;
+
+    QColor getColor();
 };
 
 #endif

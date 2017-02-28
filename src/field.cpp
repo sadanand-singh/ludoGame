@@ -7,6 +7,7 @@
 Field::Field(qreal x, qreal y, qreal w, qreal h, QGraphicsItem* parent) :
     QGraphicsRectItem(x, y, w, h, parent),
     nextField(nullptr),
+    prevField(nullptr),
     special(false),
     text(nullptr)
 {
@@ -18,10 +19,20 @@ void Field::setNextField(Field *field)
     nextField = field;
 }
 
+void Field::setPreviousField(Field *field)
+{
+    prevField = field;
+}
+
 Field* Field::next(QColor color)
 {
     Q_UNUSED (color);
     return nextField;
+}
+
+Field* Field::previous()
+{
+    return prevField;
 }
 
 QList<Figure*>& Field::getFigures()

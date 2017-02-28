@@ -249,7 +249,7 @@ void Game::howToPlay()
 
 void Game::delay(unsigned sec)
 {
-    QTime dieTime= QTime::currentTime().addSecs(sec);
+    QTime dieTime = QTime::currentTime().addSecs(sec);
     while (QTime::currentTime() < dieTime)
         QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 }

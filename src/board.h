@@ -26,6 +26,7 @@ class Board : public QWidget
 
     void drawSpecial(unsigned index, QColor pen = Qt::black);
     void setupNextField();
+    void setupPreviousField();
     void setupNextSafeZone();
     void addStartFields(HomeField *home, unsigned colorIndex, unsigned next);
 
