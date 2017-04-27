@@ -66,8 +66,8 @@ double ComputerPlayer::getFieldCost(Field* pos)
     if (dynamic_cast<StartField*>(pos)) return 200.0;
 
     // if possible do not touch ones in safe field
-    if (dynamic_cast<SafeField*>(pos)) return 0.0;
-    if (dynamic_cast<EndField*>(pos)) return -10.0;
+    if (dynamic_cast<SafeField*>(pos)) return -100.0;
+    if (dynamic_cast<EndField*>(pos)) return -50.0;
 
     // find number of other color, and safe fields behind (6-)
     auto safeBehind = 0u;
@@ -110,7 +110,23 @@ double ComputerPlayer::getFieldCost(Field* pos)
     {
         auto otherColor = figs.at(0)->getColor();
         if (otherColor != color) cost -= 500.0;
+
+        // find how far is the othercolor from home
+        auto otherColorDistFromHome = distFromHome(pos, otherColor);
+        // add more likely to kill the ones too close to safety
+        cost -= (otherColorDistFromHome * 2);
     }
+
+    // add a cost of intertia depending on position from home
+    auto distanceFromHome = distFromHome(pos, color);
+    if (pos->isSpecial())
+        cost -= (distanceFromHome * 2);
+    else
+    {
+        if (distanceFromHome > 26)
+            cost += (distanceFromHome * 2);
+    }
+
     cost -= (othersAhead * 80);
     cost += (othersBehind * 40);
     cost -= (safeAhead * 50);
@@ -135,4 +151,29 @@ unsigned ComputerPlayer::getOtherCount(Field* pos, bool isAhead)
         if (colorCurrent != color) ++countOthers;
     }
     return countOthers;
+}
+
+int ComputerPlayer::distFromHome(Field* pos, QColor colorCurrent)
+{
+    auto red = QColor(205, 92, 92);
+    auto green = QColor(85, 107, 47);
+    auto yellow = QColor(218, 165, 32);
+    auto blue = QColor(0, 191, 255);
+
+    int homeIndex = 0;
+    if (colorCurrent == red) homeIndex = 1;
+    if (colorCurrent == green) homeIndex = 14;
+    if (colorCurrent == yellow) homeIndex = 27;
+    if (colorCurrent == blue) homeIndex = 40;
+
+    auto currentIndex = pos->getIndex();
+    if (currentIndex <= 51)
+    {
+        if (currentIndex >= homeIndex)
+            return (currentIndex - homeIndex);
+        else
+            return (51 + currentIndex - homeIndex);
+    }
+
+    return 0;
 }

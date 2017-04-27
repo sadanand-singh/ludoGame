@@ -13,6 +13,7 @@ class ComputerPlayer : public Player
     double moveCost(Figure* fig);
     double getFieldCost(Field* pos);
     unsigned getOtherCount(Field* pos, bool isAhead = false);
+    int distFromHome(Field* pos, QColor color);
 
     public:
     ComputerPlayer(QString name, QColor color, QObject *parent = nullptr);
