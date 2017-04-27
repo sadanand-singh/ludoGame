@@ -17,10 +17,13 @@ class Field : public QObject, public QGraphicsRectItem
     bool special;
     QList<Figure*> figures;
     QGraphicsTextItem *text;
+    int index;
 
     public:
     Field(qreal x, qreal y, qreal w, qreal h, QGraphicsItem* parent = nullptr);
     void setNextField(Field *field);
+    void setIndex(int index);
+    int getIndex();
     void setPreviousField(Field *field);
     QList<Figure*>& getFigures();
     bool isSpecial();

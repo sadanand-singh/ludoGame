@@ -9,7 +9,8 @@ Field::Field(qreal x, qreal y, qreal w, qreal h, QGraphicsItem* parent) :
     nextField(nullptr),
     prevField(nullptr),
     special(false),
-    text(nullptr)
+    text(nullptr),
+    index(0)
 {
     setPen(QPen(Qt::black, 2.0));
 }
@@ -103,4 +104,14 @@ void Field::drawFigures()
 bool Field::isSpecial()
 {
     return special;
+}
+
+void Field::setIndex(int index)
+{
+    this->index = index;
+}
+
+int Field::getIndex()
+{
+    return this->index;
 }

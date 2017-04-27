@@ -34,21 +34,26 @@ Board::Board(QWidget *parent) : QWidget(parent),
     QGraphicsRectItem *end = scene->addRect(QRectF(240, 240, 120, 120));
     end->setPen(QPen(Qt::black, 2.0));
 
+    int index = 0;
+
     // add main field
     for (qreal x = 0; x < 240; x += 40)
     {
         Field* box = new Field(x, 240, 40, 40);
+        box->setIndex(index++);
         scene->addItem(box);
         field.append(box);
     }
     for (qreal y = 200; y >= 0; y -= 40)
     {
         Field* box = new Field(240, y, 40, 40);
+        box->setIndex(index++);
         scene->addItem(box);
         field.append(box);
     }
 
     Field* box1 = new LastField(280, 0, 40, 40);
+    box1->setIndex(index++);
     box1->setColor(QColor(85, 107, 47));
     scene->addItem(box1);
     field.append(box1);
@@ -56,17 +61,20 @@ Board::Board(QWidget *parent) : QWidget(parent),
     for (qreal y = 0; y < 240; y += 40)
     {
         Field* box = new Field(320, y, 40, 40);
+        box->setIndex(index++);
         scene->addItem(box);
         field.append(box);
     }
     for (qreal x = 360; x < 600; x += 40)
     {
         Field* box = new Field(x, 240, 40, 40);
+        box->setIndex(index++);
         scene->addItem(box);
         field.append(box);
     }
 
     Field* box2 = new LastField(560, 280, 40, 40);
+    box2->setIndex(index++);
     box2->setColor(QColor(218, 165, 32));
     scene->addItem(box2);
     field.append(box2);
@@ -74,17 +82,20 @@ Board::Board(QWidget *parent) : QWidget(parent),
     for (qreal x = 560; x >= 360; x -= 40)
     {
         Field* box = new Field(x, 320, 40, 40);
+        box->setIndex(index++);
         scene->addItem(box);
         field.append(box);
     }
     for (qreal y = 360; y < 600; y += 40)
     {
         Field* box = new Field(320, y, 40, 40);
+        box->setIndex(index++);
         scene->addItem(box);
         field.append(box);
     }
 
     Field* box3 = new LastField(280, 560, 40, 40);
+    box3->setIndex(index++);
     box3->setColor(QColor(0, 191, 255));
     scene->addItem(box3);
     field.append(box3);
@@ -92,17 +103,20 @@ Board::Board(QWidget *parent) : QWidget(parent),
     for (qreal y = 560; y >= 360; y -= 40)
     {
         Field* box = new Field(240, y, 40, 40);
+        box->setIndex(index++);
         scene->addItem(box);
         field.append(box);
     }
     for (qreal x = 200; x >= 0; x -= 40)
     {
         Field* box = new Field(x, 320, 40, 40);
+        box->setIndex(index++);
         scene->addItem(box);
         field.append(box);
     }
 
     Field* box4 = new LastField(0, 280, 40, 40);
+    box4->setIndex(index++);
     box4->setColor(QColor(205, 92, 92));
     scene->addItem(box4);
     field.append(box4);
@@ -110,6 +124,7 @@ Board::Board(QWidget *parent) : QWidget(parent),
     for (qreal x = 40; x < 240; x += 40)
     {
         Field* box = new SafeField(x, 280, 40, 40);
+        box->setIndex(index++);
         scene->addItem(box);
         box->setColor(QColor(205, 92, 92));
         field.append(box);
@@ -117,6 +132,7 @@ Board::Board(QWidget *parent) : QWidget(parent),
     for (qreal y = 40; y < 240; y += 40)
     {
         Field* box = new SafeField(280, y, 40, 40);
+        box->setIndex(index++);
         scene->addItem(box);
         box->setColor(QColor(85, 107, 47));
         field.append(box);
@@ -124,6 +140,7 @@ Board::Board(QWidget *parent) : QWidget(parent),
     for (qreal x = 520; x >= 360; x -= 40)
     {
         Field* box = new SafeField(x, 280, 40, 40);
+        box->setIndex(index++);
         scene->addItem(box);
         box->setColor(QColor(218, 165, 32));
         field.append(box);
@@ -131,6 +148,7 @@ Board::Board(QWidget *parent) : QWidget(parent),
     for (qreal y = 520; y >= 360; y -= 40)
     {
         Field* box = new SafeField(280, y, 40, 40);
+        box->setIndex(index++);
         scene->addItem(box);
         box->setColor(QColor(0, 191, 255));
         field.append(box);
