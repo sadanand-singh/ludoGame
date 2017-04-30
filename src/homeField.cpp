@@ -12,6 +12,7 @@ HomeField::HomeField(qreal x, qreal y, qreal r, QColor c, QGraphicsScene *scene,
     startY(y),
     color(c),
     rect(nullptr),
+    hiliteRect(nullptr),
     triangle(nullptr)
 {
     rect = scene->addRect(QRectF(x, y, 240, 240));

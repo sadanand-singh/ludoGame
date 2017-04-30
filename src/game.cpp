@@ -16,6 +16,8 @@
 #include <QDebug>
 
 Game::Game(QMainWindow* parent) : QMainWindow(parent),
+    newGameAction(nullptr),
+    statusLabel(nullptr),
     board(nullptr),
     dice(nullptr),
     playerColors({QColor(205, 92, 92), QColor(85, 107, 47), QColor(218, 165, 32), QColor(0, 191, 255)}),
@@ -45,14 +47,6 @@ void Game::createActions()
     connect(newGameAction, &QAction::triggered, this, &Game::newGame);
     gameMenu->addAction(newGameAction);
     gameToolBar->addAction(newGameAction);
-
-    const QIcon resetIcon = QIcon(":/images/clear");
-    resetAction = new QAction(resetIcon, tr("&Reset"), this);
-    connect(resetAction, &QAction::triggered, this, &Game::resetGame);
-    resetAction->setShortcuts(QKeySequence::Replace);
-    resetAction->setStatusTip(tr("Reset the game"));
-    gameMenu->addAction(resetAction);
-    resetAction->setEnabled(false);
 
     gameMenu->addSeparator();
 
@@ -94,7 +88,6 @@ void Game::newGame()
 void Game::start(const QList<QPair<bool, QString>> playerData)
 {
     newGameAction->setEnabled(false);
-    resetAction->setEnabled(true);
     statusLabel->setText(tr("Game Started..."));
 
     auto index = 0u;
@@ -218,13 +211,6 @@ void Game::updateStatusMessage(unsigned diceValue)
     auto colorName = playerColorNames.at(index);
     auto msg = QStringLiteral("%1 (%2) You got %3!").arg(currPlayer->getName()).arg(colorName).arg(diceValue);
     statusLabel->setText(msg);
-}
-
-void Game::resetGame()
-{
-    newGameAction->setEnabled(true);
-    resetAction->setEnabled(false);
-    statusLabel->setText(tr("Game Reset..."));
 }
 
 void Game::about()

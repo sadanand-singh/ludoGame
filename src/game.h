@@ -17,7 +17,6 @@ class Game : public QMainWindow
     private:
     QString status;
     QAction *newGameAction;
-    QAction *resetAction;
     QLabel *statusLabel;
     Board *board;
     DiceWidget *dice;
@@ -36,7 +35,6 @@ class Game : public QMainWindow
     void about();
     void howToPlay();
     void newGame();
-    void resetGame();
     void updateStatusMessage(unsigned diceValue);
     void activatePlayerFigures(unsigned diceValue);
     void start(const QList<QPair<bool, QString>> data);
