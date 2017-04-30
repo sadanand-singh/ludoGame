@@ -40,9 +40,9 @@ void EndField::drawFigures()
         auto figureRadius = 0.5 * fig->getDiameter();
         auto center = this->boundingRect().center();
         auto topLeft = center - QPointF(figureRadius, figureRadius);
-        topLeft += QPointF(5, 0);
+        topLeft += QPointF(2, -2);
         this->text->setPos(topLeft);
-        this->text->setFont(QFont("Times", 10, QFont::Bold));
+        this->text->setFont(QFont("Times", 8, QFont::Bold));
         this->text->setPlainText(QString::number(figureCount));
         scene->addItem(this->text);
     }

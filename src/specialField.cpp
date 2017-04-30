@@ -86,9 +86,9 @@ void SpecialField::drawFigures()
             auto center = this->boundingRect().center();
             getNewCenter(center, index);
             auto topLeft = center - QPointF(8.0, 8.0);
-            topLeft += QPointF(5, 0);
+            topLeft += QPointF(2, -2);
             textLocal->setPos(topLeft);
-            textLocal->setFont(QFont("Times", 10, QFont::Bold));
+            textLocal->setFont(QFont("Times", 8, QFont::Bold));
             textLocal->setPlainText(QString::number(count));
             scene->addItem(textLocal);
             texts[index] = textLocal;
